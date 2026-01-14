@@ -1,22 +1,20 @@
 #!/bin/bash
-# Lock Screen Script with Blur
-# Dependencies: i3lock, imagemagick, maim
+# Lock screen by redirecting to LightDM Greeter (Blocking version for xss-lock)
+# Dependencies: lightdm, dbus-monitor
 
-# Temporary file for the screenshot
-IMAGE="/tmp/i3lock.png"
+# 1. Trigger the lock (switch to greeter)
+dm-tool lock
 
-# Take a screenshot
-maim "$IMAGE"
+# 2. Identify current session
+SESSION_ID=${XDG_SESSION_ID:-$(loginctl | grep "$USER" | awk '{print $1}' | head -n 1)}
 
-# Blur the screenshot (fast blur)
-# -scale 10% -scale 1000% is faster than -blur
-convert "$IMAGE" -scale 10% -scale 1000% "$IMAGE"
+# 3. Wait until the session becomes active again
+# We listen for PropertiesChanged on our session and check the 'Active' property
+dbus-monitor --system "type='signal',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',path='/org/freedesktop/login1/session/_${SESSION_ID}'" | while read -r line; do
+    if loginctl show-session "$SESSION_ID" -p Active --value | grep -q "yes"; then
+        break
+    fi
+done
 
-# Add a lock icon or text if desired (optional, adding text here)
-# convert "$IMAGE" -gravity center -annotate +0+0 "Locked" "$IMAGE"
-
-# Lock the screen
-i3lock -i "$IMAGE"
-
-# Clean up
-rm "$IMAGE"
+# If session is active, exit script so xss-lock knows we are done
+exit 0

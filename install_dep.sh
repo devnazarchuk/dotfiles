@@ -5,7 +5,7 @@
 # ===============================================
 
 # 🔹 Core System Tools
-sudo pacman -S --needed base-devel git wget curl
+sudo pacman -S --needed base-devel git wget curl accountsservice
 
 # 🔹 AUR helper
 if ! command -v yay >/dev/null 2>&1; then
@@ -18,9 +18,9 @@ fi
 # ===============================================
 # 1️⃣ Browsers / Messengers
 # ===============================================
-yay -S --needed brave-bin
-yay -S --needed telegram-desktop-bin
-yay -S --needed ticktick
+#yay -S --needed brave-bin
+#yay -S --needed telegram-desktop-bin
+#yay -S --needed ticktick
 
 # ===============================================
 # 2️⃣ i3 / UI / Panels / Status
@@ -58,7 +58,7 @@ sudo pacman -S --needed mpv ffmpeg libva libva-utils mesa \
 # ===============================================
 # 7️⃣ Shells / Utilities
 # ===============================================
-yay -S --needed neofetch fish anki acpi upower
+yay -S --needed neofetch fish anki-bin acpi upower
 
 # ===============================================
 # Finish
