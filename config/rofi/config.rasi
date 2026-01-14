@@ -1,6 +1,12 @@
 configuration {
-    modi:                       "drun,run,window";
+    modi:                       "drun,run,window,filebrowser,combi";
+    combi-modi:                 "drun,run,window,filebrowser";
     show-icons:                 true;
+    display-drun:               "";
+    display-run:                "";
+    display-filebrowser:        "";
+    display-window:             "";
+    display-combi:              "";
     font:                       "JetBrainsMono Nerd Font 10";
 }
 
@@ -65,8 +71,8 @@ listview {
     border: 0px 0px 0px;
     padding: 6px 0px 0px;
     margin: 10px 0px 0px 20px;
-    columns: 2;
-    lines: 5;
+    columns: 1;
+    lines: 8;
     background-color: @bg-col;
 }
 

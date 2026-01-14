@@ -32,7 +32,7 @@ sudo pacman -S --needed i3-wm i3status i3blocks dmenu rofi picom feh xorg-xsetro
 # ===============================================
 # 3️⃣ Keyboard / Mouse / Input
 # ===============================================
-sudo pacman -S --needed xinput xf86-input-libinput libinput-gestures wmctrl xdotool
+sudo pacman -S --needed xinput xf86-input-libinput libinput-gestures wmctrl xdotool xcape
 
 # ===============================================
 # 4️⃣ Screenshots / Clipboard / OCR
