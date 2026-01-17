@@ -261,6 +261,9 @@ bindsym $mod+i exec gnome-control-center
 bindsym $mod+a exec anki
 bindsym $mod+b exec calibre
 bindsym $mod+o exec obsidian
+bindsym $mod+Shift+w exec altus
+for_window [class="dev.zed.Zed"] floating disable
+for_window [class="dev.zed.Zed"] border none
 
 # Clipboard (Requires greenclip)
 bindsym $mod+v exec rofi -modi "clipboard:greenclip print" -show clipboard
