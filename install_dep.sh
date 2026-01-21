@@ -27,7 +27,9 @@ fi
 # ===============================================
 sudo pacman -S --needed i3-wm i3status i3blocks dmenu rofi picom feh xorg-xsetroot \
     polybar dunst ttf-ubuntu-font-family ttf-jetbrains-mono-nerd kitty \
-    dex xss-lock network-manager-applet brightnessctl playerctl
+    dex xss-lock network-manager-applet brightnessctl playerctl \
+    sddm plymouth qt5-quickcontrols2 layer-shell-qt
+yay -S --needed i3lock-color layer-shell-qt5
 
 # ===============================================
 # 3️⃣ Keyboard / Mouse / Input
@@ -58,7 +60,8 @@ sudo pacman -S --needed mpv ffmpeg libva libva-utils mesa \
 # ===============================================
 # 7️⃣ Shells / Utilities
 # ===============================================
-yay -S --needed neofetch fish anki-bin acpi upower
+yay -S --needed neofetch fish anki-bin acpi upower \
+    blueman librepods python-pillow
 
 # ===============================================
 # Finish
