@@ -62,6 +62,8 @@ sudo pacman -S --needed mpv ffmpeg libva libva-utils mesa \
 # ===============================================
 yay -S --needed neofetch fish anki-bin acpi upower \
     blueman librepods python-pillow
+#sudo pacman -S --needed zram-generator
+#sudo sed -i 's/zram-size = 4096/zram-size = 16384/' /etc/systemd/zram-generator.conf && sudo systemctl daemon-reload && sudo systemctl restart systemd-zram-setup@zram0.service
 
 # ===============================================
 # Finish
