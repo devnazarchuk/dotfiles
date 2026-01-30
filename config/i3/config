@@ -21,7 +21,7 @@ exec --no-startup-id setxkbmap -layout us,ua -option grp:alt_shift_toggle
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
-# exec --no-startup-id blueman-applet
+exec --no-startup-id blueman-applet
 # exec --no-startup-id librepods
 
 # Use pactl to adjust volume in PulseAudio.
@@ -283,6 +283,7 @@ exec_always --no-startup-id libinput-gestures-setup start
 exec --no-startup-id gnome-keyring-daemon --start --components=secrets
 bindsym Ctrl+Shift+Escape exec kitty -e htop
 exec_always --no-startup-id ~/.config/i3/scripts/battery_monitor.sh
+exec --no-startup-id ~/.config/i3/scripts/media_inhibit.sh
 
 # Screen Recording
 bindsym $mod+Shift+Q exec --no-startup-id ~/.config/i3/scripts/record.sh region
