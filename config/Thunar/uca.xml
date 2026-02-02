@@ -61,4 +61,15 @@
 	<startup-notify/>
 	<directories/>
 </action>
+<action>
+	<icon>preferences-desktop-wallpaper</icon>
+	<name>Set Wallpaper</name>
+	<submenu></submenu>
+	<unique-id>1770054500000000-1</unique-id>
+	<command>feh --bg-fill %f &amp;&amp; ln -sf %f ~/.config/i3/theme/wallpaper</command>
+	<description>Set this image as i3 wallpaper</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
 </actions>

@@ -14,4 +14,7 @@
   <property name="misc-open-new-window-as-tab" type="bool" value="true"/>
   <property name="misc-middle-click-in-tab" type="bool" value="true"/>
   <property name="misc-single-click-browse" type="bool" value="false"/>
+  <property name="misc-disabled-plugins" type="array">
+    <value type="string" value="thunar-wallpaper-plugin"/>
+  </property>
 </channel>
