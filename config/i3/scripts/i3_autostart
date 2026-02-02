@@ -18,8 +18,18 @@ for _prs in "${_ps[@]}"; do
 	fi
 done
 
-# Lauch xsettingsd daemon
-xsettingsd --config="$idir"/xsettingsd &
+# Lauch xsettingsd daemon (if available)
+if command -v xsettingsd >/dev/null 2>&1; then
+    xsettingsd --config="$idir"/xsettingsd &
+else
+    gsettings set org.gnome.desktop.interface gtk-theme "catppuccin-mocha-mauve-standard+default"
+    gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
+    gsettings set org.gnome.desktop.interface font-name "Ubuntu 11"
+    gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+    xfconf-query -c xsettings -p /Net/ThemeName -s "catppuccin-mocha-mauve-standard+default" --create -t string 2>/dev/null
+    xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark" --create -t string 2>/dev/null
+    xfconf-query -c xsettings -p /Gtk/FontName -s "Ubuntu 11" --create -t string 2>/dev/null
+fi
 
 # polkit agent
 if [[ ! `pidof xfce-polkit` ]]; then

@@ -2,6 +2,12 @@
 
 A lightweight, beautiful, and functional i3wm setup based on Catppuccin Mocha.
 
+## Screenshots
+![Main Preview](assets/preview.png)
+![Rofi search](assets/preview1.png)
+
+
+
 ## Features
 - **Window Manager**: i3-wm (with gaps and rounded corners via picom)
 - **Bar**: Polybar (Catppuccin theme)

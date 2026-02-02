@@ -49,6 +49,15 @@ default_floating_border pixel 2
 hide_edge_borders none
 focus_follows_mouse yes
 mouse_warping none
+
+# Window dragging with zones + Swapping with Shift
+tiling_drag modifier titlebar
+# Use Shift to swap windows instead of move
+# tiling_drag modifier swap_modifier Shift
+smart_borders on
+smart_gaps off
+gaps outer 3
+
 workspace_auto_back_and_forth yes
 focus_on_window_activation smart
 
@@ -86,7 +95,7 @@ bindsym $mod+0 workspace number $ws10
 bindsym $mod+q kill
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+Alt+q exit
+bindsym $mod+Shift+$alt+q exit
 bindsym $mod+l exec --no-startup-id ~/.config/i3/scripts/lock.sh
 
 ## Layout & Focus
@@ -166,8 +175,8 @@ bindsym $mod+g exec "kitty -e gemini"
 bindsym $mod+Shift+w exec altus
 
 ##-- Rofi Menus (Beautiful Archcraft Style) ----
-bindsym $mod+space exec "rofi -show combi -theme ~/.config/rofi/config.rasi"
-bindsym $alt+F1 exec "rofi -show combi -theme ~/.config/rofi/config.rasi"
+bindsym $mod+space exec --no-startup-id ~/.config/i3/scripts/rofi_launcher
+bindsym $alt+F1 exec --no-startup-id ~/.config/i3/scripts/rofi_launcher
 bindsym $alt+F2 exec --no-startup-id ~/.config/i3/scripts/rofi_runner
 bindsym $mod+x exec --no-startup-id ~/.config/i3/scripts/rofi_powermenu
 bindsym $mod+Delete exec ~/.config/i3/scripts/rofi_powermenu

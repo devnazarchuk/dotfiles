@@ -1,8 +1,9 @@
 ## Copyright (C) 2020-2025 Aditya Shakya <adi1090x@gmail.com>
 
-Net/ThemeName "Manhattan"
-Net/IconThemeName "Luv-Folders-Dark"
+Net/ThemeName "catppuccin-mocha-mauve-standard+default"
+Net/IconThemeName "Papirus-Dark"
 Gtk/CursorThemeName "Qogirr-Dark"
+Gtk/FontName "Ubuntu 11"
 Net/EnableEventSounds "0"
 Net/EnableInputFeedbackSounds "0"
 Xft/DPI "-1"

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<submenu></submenu>
+	<unique-id>1769015385806752-1</unique-id>
+	<command>kitty --working-directory %f</command>
+	<description>Open Kitty in this directory</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>system-software-update</icon>
+	<name>Edit as Root</name>
+	<submenu></submenu>
+	<unique-id>1769015385806752-2</unique-id>
+	<command>pkexec geany %f</command>
+	<description>Edit file with root privileges</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<plain-files/>
+</action>
+<action>
+	<icon>folder-red</icon>
+	<name>Open as Root</name>
+	<submenu></submenu>
+	<unique-id>1769015385806752-3</unique-id>
+	<command>pkexec thunar %f</command>
+	<description>Open directory with root privileges</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>edit-copy</icon>
+	<name>Copy Path</name>
+	<submenu></submenu>
+	<unique-id>1769015385806752-4</unique-id>
+	<command>echo -n %f | xclip -selection clipboard</command>
+	<description>Copy path to clipboard</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+	<plain-files/>
+</action>
+<action>
+	<icon>search</icon>
+	<name>Search in Folder</name>
+	<submenu></submenu>
+	<unique-id>1769015385806752-5</unique-id>
+	<command>catfish --path=%f</command>
+	<description>Search for files in this directory</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+</actions>

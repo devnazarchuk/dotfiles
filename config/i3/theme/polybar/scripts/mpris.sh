@@ -1,38 +1,30 @@
 #!/usr/bin/env bash
 
-# Robust MPRIS script for Polybar
-# Supports multiple players and handles missing metadata
+# Get all playing/paused players
+mapfile -t players < <(playerctl -l 2>/dev/null)
 
-# Get the list of players
-players=$(playerctl -l 2>/dev/null)
-
-if [[ -z "$players" ]]; then
-    echo " Offline"
+if [[ ${#players[@]} -eq 0 ]]; then
     exit 0
 fi
 
-# Find the first playing player
-active_player=$(playerctl -l 2>/dev/null | head -n 1)
-status=$(playerctl status 2>/dev/null)
+output=""
+for p in "${players[@]}"; do
+    p_status=$(playerctl -p "$p" status 2>/dev/null)
+    if [[ "$p_status" == "Playing" || "$p_status" == "Paused" ]]; then
+        title=$(playerctl -p "$p" metadata title 2>/dev/null)
+        artist=$(playerctl -p "$p" metadata artist 2>/dev/null)
+        
+        # Add separator if multiple sources
+        if [[ -n "$output" ]]; then output="$output %{F#45475a}|%{F-} "; fi
+        
+        if [[ -n "$artist" && -n "$title" ]]; then
+            output="$output$artist - $title"
+        elif [[ -n "$title" ]]; then
+            output="$output$title"
+        else
+            output="$output$p"
+        fi
+    fi
+done
 
-if [[ "$status" == "Playing" ]]; then
-    icon=""
-elif [[ "$status" == "Paused" ]]; then
-    icon=""
-else
-    echo " Offline"
-    exit 0
-fi
-
-# Get metadata
-title=$(playerctl metadata title 2>/dev/null)
-artist=$(playerctl metadata artist 2>/dev/null)
-
-if [[ -n "$artist" && -n "$title" ]]; then
-    echo "$icon $artist - $title"
-elif [[ -n "$title" ]]; then
-    echo "$icon $title"
-else
-    # Fallback to player name if no title
-    echo "$icon $active_player"
-fi
+echo "$output"
