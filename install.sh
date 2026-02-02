@@ -12,7 +12,61 @@ echo ":: Starting Installation..."
 # ensure ~/.config exists
 mkdir -p "$HOME_CONFIG_DIR"
 
-# 1. Determine Backup Suffix
+# 1. Cleanup Old Backups
+echo ":: Checking for old backups..."
+limit=3
+pruned=false
+to_prune_list=()
+
+# Find unique base names that have at least one backup folder
+base_names=$(find "$HOME_CONFIG_DIR" -maxdepth 1 -name "*_backup*" | sed -E 's/(.*)(_backup.*)/\1/' | xargs -n1 basename | sort -u)
+
+for base in $base_names; do
+    backups_count=$(ls -dt "$HOME_CONFIG_DIR/${base}"_backup* 2>/dev/null | wc -l)
+    if [ "$backups_count" -gt "$limit" ]; then
+        to_prune_list+=("$base")
+    fi
+done
+
+if [ ${#to_prune_list[@]} -gt 0 ]; then
+    echo ":: Found folders with more than $limit backups: ${to_prune_list[*]}"
+    read -p "   Prune all to $limit recent backups? [A]ll / [M]anual / [n]o: " global_choice
+    
+    case "$global_choice" in
+        [Aa]*)
+            for base in "${to_prune_list[@]}"; do
+                backups=$(ls -dt "$HOME_CONFIG_DIR/${base}"_backup* 2>/dev/null)
+                to_delete=$(echo "$backups" | tail -n +$((limit + 1)))
+                for item in $to_delete; do
+                    echo "   Deleting old backup: $(basename "$item")"
+                    rm -rf "$item"
+                done
+            done
+            pruned=true
+            ;;
+        [Mm]*)
+            for base in "${to_prune_list[@]}"; do
+                backups=$(ls -dt "$HOME_CONFIG_DIR/${base}"_backup* 2>/dev/null)
+                count=$(echo "$backups" | wc -l)
+                read -p "   Keep only 3 most recent for '$base'? ($count found) [y/N] " choice
+                if [[ "$choice" =~ ^[Yy]$ ]]; then
+                    to_delete=$(echo "$backups" | tail -n +$((limit + 1)))
+                    for item in $to_delete; do
+                        echo "   Deleting old backup: $(basename "$item")"
+                        rm -rf "$item"
+                    done
+                    pruned=true
+                fi
+            done
+            ;;
+        *)
+            echo "   Skipping cleanup."
+            ;;
+    esac
+fi
+[ "$pruned" = true ] && echo ":: Pruning complete."
+
+# 2. Determine Backup Suffix for CURRENT installation
 suffix="_backup"
 counter=0
 while true; do
@@ -36,9 +90,9 @@ while true; do
         break
     fi
 done
-echo ":: Backup suffix selected: '$suffix'"
+echo ":: Backup suffix for this session: '$suffix'"
 
-# 2. Install (Backup + Copy)
+# 3. Install (Backup + Copy)
 # Iterate over everything in config/
 for entry in "$CONFIG_SRC_DIR"/*; do
     basename=$(basename "$entry")
@@ -53,15 +107,9 @@ for entry in "$CONFIG_SRC_DIR"/*; do
     fi
 
     # Symlink (or Copy)
-    # Ideally symlinking is better for dotfiles so changes propagate back to repo
-    # But user asked to "copy properly", existing script did cp -r.
-    # I will stick to cp -r to match previous behavior unless requested otherwise.
     echo "   Copying: $entry -> $target"
     cp -r "$entry" "$target"
 done
-
-# Handle loose files if necessary (like packages.txt, etc if they go somewhere)
-# For now, we only handle config/* -> ~/.config/*
 
 echo ":: Installation Complete!"
 echo ":: Make sure to reload your window manager (Super+Shift+R)."
