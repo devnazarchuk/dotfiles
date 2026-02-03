@@ -92,47 +92,51 @@ while true; do
 done
 echo ":: Backup suffix for this session: '$suffix'"
 
-# 3. Install (Backup + Copy)
-# Iterate over everything in config/
-for entry in "$CONFIG_SRC_DIR"/*; do
-    basename=$(basename "$entry")
-    target="$HOME_CONFIG_DIR/$basename"
+# 3. Recursive Installation Function
+# This function handles granular backup and replacement
+# Logic: If item is a file, backup and replace. If directory, recurse.
+install_item() {
+    local src="$1"
+    local base_dest="$2"
+    
+    for entry in "$src"/*; do
+        # Handle hidden files if any (though usually not in these dirs)
+        [ -e "$entry" ] || continue
+        
+        local name=$(basename "$entry")
+        local dest_path="$base_dest/$name"
+        
+        if [ -d "$entry" ]; then
+            # If it's a directory, we don't want to replace the whole thing
+            # We want to ensure the target exists and then recurse into it
+            mkdir -p "$dest_path"
+            install_item "$entry" "$dest_path"
+        else
+            # If it's a file, backup and replace
+            if [ -e "$dest_path" ]; then
+                # Check if it's already a link to the right place (optional optimization)
+                echo "   Backing up: $dest_path -> ${dest_path}${suffix}"
+                mv "$dest_path" "${dest_path}${suffix}"
+            fi
+            echo "   Copying: $entry -> $dest_path"
+            cp -r "$entry" "$dest_path"
+        fi
+    done
+}
 
-    echo ":: Processing $basename..."
+# 4. Process .config directory
+echo ":: Processing config/ directory..."
+install_item "$CONFIG_SRC_DIR" "$HOME_CONFIG_DIR"
 
-    # Backup existing
-    if [ -e "$target" ]; then
-        echo "   Backing up: $target -> ${target}${suffix}"
-        mv "$target" "${target}${suffix}"
-    fi
-
-    # Symlink (or Copy)
-    echo "   Copying: $entry -> $target"
-    cp -r "$entry" "$target"
-done
-
-# 4. Install local (Backup + Copy)
+# 5. Process local directory
 if [ -d "$DOTFILES_DIR/local" ]; then
     echo ":: Processing local/ directory..."
     mkdir -p "$HOME/.local"
-    for entry in "$DOTFILES_DIR/local"/*; do
-        basename=$(basename "$entry")
-        target="$HOME/.local/$basename"
-        
-        echo "   Processing $basename..."
-        
-        # Backup existing (simple backup for local)
-        if [ -e "$target" ]; then
-            echo "   Backing up: $target -> ${target}${suffix}"
-            mv "$target" "${target}${suffix}"
-        fi
-        
-        echo "   Copying: $entry -> $target"
-        cp -r "$entry" "$target"
-    done
+    install_item "$DOTFILES_DIR/local" "$HOME/.local"
 fi
 
 update-desktop-database ~/.local/share/applications 2>/dev/null
+fc-cache -fv
 
 echo ":: Installation Complete!"
 echo ":: Make sure to reload your window manager (Super+Shift+R)."
