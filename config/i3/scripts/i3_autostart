@@ -47,7 +47,7 @@ xcape -e 'Super_R=Alt_L|F1' &
 xsetroot -cursor_name left_ptr
 
 # Restore wallpaper
-feh --bg-scale -cover "$idir"/theme/wallpaper
+feh --bg-fill "$idir"/theme/wallpaper
 
 # Lauch notification daemon
 "$idir"/scripts/i3_dunst
@@ -60,3 +60,6 @@ feh --bg-scale -cover "$idir"/theme/wallpaper
 
 # Start mpd
 exec mpd &
+
+# Launch session startup script (Interactive)
+~/.config/i3/scripts/session_startup.sh &

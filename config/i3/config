@@ -168,18 +168,18 @@ bindsym $mod+d exec ticktick
 bindsym $mod+c exec antigravity
 bindsym $mod+e exec thunar
 bindsym $mod+i exec gnome-control-center
-bindsym $mod+a exec anki
 bindsym $mod+b exec calibre
 bindsym $mod+o exec obsidian
 bindsym $mod+g exec "kitty -e gemini"
 bindsym $mod+Shift+w exec altus
+bindsym $mod+n exec --no-startup-id brave --app=https://www.notion.so --name=notion-app
+bindsym $mod+a exec --no-startup-id brave --app=https://noji.io/decks --name=noji-app
 
 ##-- Rofi Menus (Beautiful Archcraft Style) ----
 bindsym $alt+F1 exec --no-startup-id ~/.config/i3/scripts/rofi_launcher
 bindsym $alt+F2 exec --no-startup-id ~/.config/i3/scripts/rofi_runner
 bindsym $mod+x exec --no-startup-id ~/.config/i3/scripts/rofi_powermenu
 bindsym $mod+Delete exec ~/.config/i3/scripts/rofi_powermenu
-bindsym $mod+n exec --no-startup-id brave --app=https://www.notion.so --name=notion-app
 bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3/scripts/network_menu
 
 ##-- Utility Bindings --------------------------
@@ -233,6 +233,10 @@ for_window [class="dev.zed.Zed"] border none
 # Notion
 for_window [class="Brave-browser" instance="www.notion.so"] floating disable
 for_window [class="www.notion.so"] floating disable
+for_window [class="Brave-browser" instance="noji-app"] floating disable
+for_window [class="noji.io"] floating disable
+for_window [class="TickTick"] floating disable
+for_window [class="ticktick"] floating disable
 # Notion will be only on workspace 9
 #assign [class="Brave-browser" instance="www.notion.so"] $ws9
 #assign [class="www.notion.so"] $ws9
