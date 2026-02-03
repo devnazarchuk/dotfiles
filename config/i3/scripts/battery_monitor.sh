@@ -1,6 +1,13 @@
 #!/bin/bash
 # Battery Monitor Script
 
+# Kill already running instances of this script to prevent duplicates
+for pid in $(pgrep -f "battery_monitor.sh"); do
+    if [ "$pid" != "$$" ]; then
+        kill "$pid"
+    fi
+done
+
 warned_20=false
 warned_10=false
 
@@ -26,14 +33,14 @@ while true; do
                  mpv --no-terminal ~/Music/low_battery.mp3 > /dev/null 2>&1
                  warned_20=true
             fi
-        fi
-
-        # Reset warnings when charging or when capacity goes back up
-        if [ "$CAPACITY" -gt 20 ]; then
-            warned_20=false
-            warned_10=false
-        elif [ "$CAPACITY" -gt 10 ]; then
-            warned_10=false
+        else
+             # Reset warnings only when charging and capacity is safely above threshold
+             if [ "$CAPACITY" -gt 20 ]; then
+                 warned_20=false
+                 warned_10=false
+             elif [ "$CAPACITY" -gt 10 ]; then
+                 warned_10=false
+             fi
         fi
     fi
 
