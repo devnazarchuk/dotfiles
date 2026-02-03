@@ -62,6 +62,10 @@ sudo pacman -S --needed mpv ffmpeg libva libva-utils mesa \
 # ===============================================
 yay -S --needed neofetch fish anki-bin acpi upower \
     blueman librepods python-pillow
+
+# 🔹 Notion App Icon
+mkdir -p ~/.local/share/icons
+wget -q https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png -O ~/.local/share/icons/notion.png
 #sudo pacman -S --needed zram-generator
 #sudo sed -i 's/zram-size = 4096/zram-size = 16384/' /etc/systemd/zram-generator.conf && sudo systemctl daemon-reload && sudo systemctl restart systemd-zram-setup@zram0.service
 

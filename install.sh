@@ -111,5 +111,28 @@ for entry in "$CONFIG_SRC_DIR"/*; do
     cp -r "$entry" "$target"
 done
 
+# 4. Install local (Backup + Copy)
+if [ -d "$DOTFILES_DIR/local" ]; then
+    echo ":: Processing local/ directory..."
+    mkdir -p "$HOME/.local"
+    for entry in "$DOTFILES_DIR/local"/*; do
+        basename=$(basename "$entry")
+        target="$HOME/.local/$basename"
+        
+        echo "   Processing $basename..."
+        
+        # Backup existing (simple backup for local)
+        if [ -e "$target" ]; then
+            echo "   Backing up: $target -> ${target}${suffix}"
+            mv "$target" "${target}${suffix}"
+        fi
+        
+        echo "   Copying: $entry -> $target"
+        cp -r "$entry" "$target"
+    done
+fi
+
+update-desktop-database ~/.local/share/applications 2>/dev/null
+
 echo ":: Installation Complete!"
 echo ":: Make sure to reload your window manager (Super+Shift+R)."

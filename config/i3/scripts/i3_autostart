@@ -11,7 +11,7 @@ idir="$HOME/.config/i3"
 export XDG_CURRENT_DESKTOP='i3'
 
 # Kill already running process
-_ps=(xsettingsd ksuperkey)
+_ps=(xsettingsd xcape)
 for _prs in "${_ps[@]}"; do
 	if [[ `pidof ${_prs}` ]]; then
 		killall -9 ${_prs}
@@ -40,8 +40,8 @@ fi
 xfce4-power-manager &
 
 # Enable Super Keys For Menu
-ksuperkey -e 'Super_L=Alt_L|F1' &
-ksuperkey -e 'Super_R=Alt_L|F1' &
+xcape -e 'Super_L=Alt_L|F1' &
+xcape -e 'Super_R=Alt_L|F1' &
 
 # Fix cursor
 xsetroot -cursor_name left_ptr
