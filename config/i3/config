@@ -233,7 +233,7 @@ for_window [class="dev.zed.Zed"] border none
 # Notion
 for_window [class="Brave-browser" instance="www.notion.so"] floating disable
 for_window [class="www.notion.so"] floating disable
-for_window [class="Brave-browser" instance="noji-app"] floating disable
+for_window [class="Brave-browser" instance="noji.io"] floating disable
 for_window [class="noji.io"] floating disable
 for_window [class="TickTick"] floating disable
 for_window [class="ticktick"] floating disable
