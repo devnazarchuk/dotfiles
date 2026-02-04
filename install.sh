@@ -112,14 +112,16 @@ install_item() {
             mkdir -p "$dest_path"
             install_item "$entry" "$dest_path"
         else
-            # If it's a file, backup and replace
+            # If it's a file, check if it needs replacement
             if [ -e "$dest_path" ]; then
-                # Check if it's already a link to the right place (optional optimization)
+                if cmp -s "$entry" "$dest_path"; then
+                    continue
+                fi
                 echo "   Backing up: $dest_path -> ${dest_path}${suffix}"
                 mv "$dest_path" "${dest_path}${suffix}"
             fi
             echo "   Copying: $entry -> $dest_path"
-            cp -r "$entry" "$dest_path"
+            cp "$entry" "$dest_path"
         fi
     done
 }
