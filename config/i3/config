@@ -98,6 +98,10 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+$alt+q exit
 bindsym $mod+l exec --no-startup-id ~/.config/i3/scripts/lock.sh
 
+## Keyboard Layout Switcher (MRU)
+# Use bindcode 66 to capture physical CapsLock key directly
+bindcode 66 exec --no-startup-id ~/.config/i3/scripts/kb_switcher.py
+
 ## Layout & Focus
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
