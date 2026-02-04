@@ -40,7 +40,7 @@ fi
 xfce4-power-manager &
 
 # Setup Keyboard Layout
-setxkbmap -layout us,ua,de,ru -option grp:alt_shift_toggle
+setxkbmap -layout us,ua -option grp:alt_shift_toggle
 
 # Enable Super Keys For Menu
 xcape -e 'Super_L=Alt_L|F1' &
