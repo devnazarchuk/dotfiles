@@ -10,9 +10,11 @@ WS_WORK="8"
 WS_TODO="9"
 
 # Rofi menu for confirmation
-CHOICE=$(echo -e "Yes\nNo" | rofi -dmenu -p "Launch work environment?" -theme-str 'window {width: 300px;}')
+YES=" Yes"
+NO=" No"
+CHOICE=$(echo -e "$YES\n$NO" | rofi -dmenu -mesg "Launch work environment?" -theme ~/.config/i3/theme/rofi/confirm.rasi)
 
-if [ "$CHOICE" == "Yes" ]; then
+if [ "$CHOICE" == "$YES" ]; then
     # Launch AyuGram on 3
     i3-msg "workspace $WS_CHAT; exec AyuGram"
     
