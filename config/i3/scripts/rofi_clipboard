@@ -1,66 +1,154 @@
 #!/usr/bin/env bash
 
-# Custom Rofi script to handle greenclip with icons
+# Advanced Rofi Clipboard with Visual Tabs, Arrow Nav, File Support & Clear History
 CACHE_DIR="/tmp/greenclip"
+THEME_MAIN="$HOME/.config/i3/theme/rofi/launcher.rasi"
+THEME_MEDIA="$HOME/.config/i3/theme/rofi/media.rasi"
+CURRENT_VIEW=${1:-Main}
 
-# Function to generate the list of clipboard items with icons for Rofi
-generate_list() {
+# Pango markup for visual tabs
+case "$CURRENT_VIEW" in
+    Main)  TABS="<b><u>  Main  </u></b> |   Media   |   Files  " ;;
+    Media) TABS="  Main   | <b><u>  Media  </u></b> |   Files  " ;;
+    Files) TABS="  Main   |   Media   | <b><u>  Files  </u></b> " ;;
+esac
+
+# Function to detect if a line is a file path
+is_file_path() {
+    local line="$1"
+    local clean_path=$(echo "$line" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e "s/^'//" -e "s/'$//" -e 's/^"//' -e 's/"$//')
+    [[ "$clean_path" == "~"* ]] && eval_path="${HOME}${clean_path:1}" || eval_path="$clean_path"
+    if [[ "$eval_path" == /* ]] && [ -e "$eval_path" ]; then
+        echo "$eval_path"
+        return 0
+    fi
+    return 1
+}
+
+list_main() {
+    echo -en "Clear History\0icon\x1fedit-clear\n"
     greenclip print | while read -r line; do
         if [ -z "$line" ]; then continue; fi
-        
         icon="text-x-generic"
-        
-        # 1. Detect greenclip image entries
         if [[ "$line" == "image/png"* ]]; then
             hash=$(echo "$line" | grep -oE '\-[0-9]+$')
-            if [ -f "$CACHE_DIR/$hash.png" ]; then
-                icon="$CACHE_DIR/$hash.png"
-            else
-                icon="image-x-generic"
-            fi
+            [ -f "$CACHE_DIR/$hash.png" ] && icon="$CACHE_DIR/$hash.png" || icon="image-x-generic"
         else
-            # 2. Detect if it's a file path
-            clean_path=$(echo "$line" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e "s/^'//" -e "s/'$//" -e 's/^"//' -e 's/"$//')
-            
-            if [[ "$clean_path" == "~"* ]]; then
-                eval_path="${HOME}${clean_path:1}"
-            else
-                eval_path="$clean_path"
-            fi
-            
-            if [[ "$eval_path" == /* ]] && [ -e "$eval_path" ]; then
-                if [ -d "$eval_path" ]; then
-                    icon="folder"
-                else
+            eval_path=$(is_file_path "$line")
+            if [ $? -eq 0 ]; then
+                if [ -d "$eval_path" ]; then icon="folder"; else
                     case "${eval_path,,}" in
-                        *.mp3|*.flac|*.wav|*.ogg|*.m4a|*.opus|*.mka) icon="audio-x-generic" ;;
+                        *.mp3|*.flac|*.wav|*.ogg|*.m4a|*.mka) icon="audio-x-generic" ;;
                         *.mp4|*.mkv|*.avi|*.mov|*.webm) icon="video-x-generic" ;;
                         *.png|*.jpg|*.jpeg|*.gif|*.svg|*.webp) icon="$eval_path" ;;
                         *.pdf) icon="application-pdf" ;;
-                        *.zip|*.tar.gz|*.tgz|*.rar|*.7z|*.tar) icon="package-x-generic" ;;
-                        *.txt|*.md|*.conf|*.ini|*.sh|*.py|*.js|*.json|*.ts|*.tsx|*.css|*.html|*.go|*.rs|*.c|*.h|*.cpp|*.hpp|*.yaml|*.yml|*.toml) icon="text-x-script" ;;
+                        *.zip|*.tar.gz|*.7z) icon="package-x-generic" ;;
                         *) icon="text-x-generic" ;;
                     esac
                 fi
             fi
         fi
-        
-        # Output icon format for Rofi dmenu
         echo -en "$line\0icon\x1f$icon\n"
     done
 }
 
-# Run rofi in dmenu mode - this ensures it closes on selection
-selection=$(generate_list | rofi -dmenu -i -p "Clipboard" -show-icons -theme ~/.config/i3/theme/rofi/launcher.rasi)
+list_media() {
+    greenclip print | while read -r line; do
+        if [ -z "$line" ]; then continue; fi
+        icon=""
+        is_media=false
+        if [[ "$line" == "image/png"* ]]; then
+            hash=$(echo "$line" | grep -oE '\-[0-9]+$')
+            [ -f "$CACHE_DIR/$hash.png" ] && icon="$CACHE_DIR/$hash.png" && is_media=true
+        else
+            eval_path=$(is_file_path "$line")
+            if [ $? -eq 0 ] && [ -f "$eval_path" ]; then
+                case "${eval_path,,}" in
+                    *.mp3|*.flac|*.wav|*.ogg|*.m4a|*.mka) icon="audio-x-generic"; is_media=true ;;
+                    *.mp4|*.mkv|*.avi|*.mov|*.webm) icon="video-x-generic"; is_media=true ;;
+                    *.png|*.jpg|*.jpeg|*.gif|*.svg|*.webp) icon="$eval_path"; is_media=true ;;
+                esac
+            fi
+        fi
+        if [ "$is_media" = true ]; then
+            echo -en "$line\0icon\x1f$icon\n"
+        fi
+    done
+}
 
-# Handle selection - paste into clipboard
-if [ -n "$selection" ]; then
-    if [[ "$selection" == "image/png"* ]]; then
-        hash=$(echo "$selection" | grep -oE '\-[0-9]+$')
-        if [ -f "$CACHE_DIR/$hash.png" ]; then
-            xclip -selection clipboard -t image/png -i "$CACHE_DIR/$hash.png"
-            exit 0
+list_files() {
+    greenclip print | while read -r line; do
+        if [ -z "$line" ]; then continue; fi
+        eval_path=$(is_file_path "$line")
+        if [ $? -eq 0 ]; then
+            icon="text-x-generic"
+            [ -d "$eval_path" ] && icon="folder" || icon="text-x-generic"
+            echo -en "$line\0icon\x1f$icon\n"
+        fi
+    done
+}
+
+handle_selection() {
+    local sel="$1"
+    [ -z "$sel" ] && exit 0
+    
+    # Check for Clear History
+    if [ "$sel" = "Clear History" ]; then
+        pkill -f greenclip
+        greenclip clear
+        greenclip daemon &
+        rm -rf /home/arch/clipboard/*
+        notify-send "Clipboard" "History cleared!"
+        exit 0
+    fi
+    
+    if [[ "$sel" == "image/png"* ]]; then
+        hash=$(echo "$sel" | grep -oE '\-[0-9]+$')
+        [ -f "$CACHE_DIR/$hash.png" ] && xclip -selection clipboard -t image/png -i "$CACHE_DIR/$hash.png" &
+    else
+        # Check if it's a file path
+        eval_path=$(is_file_path "$sel")
+        if [ $? -eq 0 ]; then
+            # Copy as proper file URI (for pasting in file managers)
+            echo -e "file://${eval_path}\r" | xclip -selection clipboard -t text/uri-list &
+        else
+            # Default text copy
+            printf "%s" "$sel" | xclip -selection clipboard &
         fi
     fi
-    printf "%s" "$selection" | xclip -selection clipboard
+}
+
+active_theme="$THEME_MAIN"
+[ "$CURRENT_VIEW" == "Media" ] && active_theme="$THEME_MEDIA"
+
+# Launch Rofi
+selection=$(list_${CURRENT_VIEW,,} | rofi -dmenu \
+    -p "Clipboard" \
+    -mesg "$TABS" \
+    -i -show-icons \
+    -kb-row-down "Down" \
+    -kb-row-up "Up" \
+    -kb-element-next "" \
+    -kb-element-prev "" \
+    -kb-custom-1 "Tab" \
+    -kb-custom-2 "Shift+Tab" \
+    -theme "$active_theme")
+
+ret=$?
+
+# Handle switching
+if [ $ret -eq 10 ]; then
+    case "$CURRENT_VIEW" in
+        Main) exec "$0" Media ;;
+        Media) exec "$0" Files ;;
+        Files) exec "$0" Main ;;
+    esac
+elif [ $ret -eq 11 ]; then
+    case "$CURRENT_VIEW" in
+        Main) exec "$0" Files ;;
+        Files) exec "$0" Media ;;
+        Media) exec "$0" Main ;;
+    esac
 fi
+
+handle_selection "$selection"

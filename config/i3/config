@@ -245,6 +245,7 @@ for_window [class="ticktick"] floating disable
 exec_always --no-startup-id ~/.config/i3/scripts/i3_autostart
 exec --no-startup-id greenclip daemon
 exec_always --no-startup-id libinput-gestures-setup start
+exec --no-startup-id ~/.config/i3/scripts/clipboard_archiver.sh
 exec_always --no-startup-id ~/.config/i3/scripts/battery_monitor.sh
 exec_always --no-startup-id ~/.config/i3/scripts/media_inhibit.sh
 exec --no-startup-id gnome-keyring-daemon --start --components=secrets
