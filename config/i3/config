@@ -238,8 +238,6 @@ for_window [class="noji.io"] floating disable
 for_window [class="TickTick"] floating disable
 for_window [class="ticktick"] floating disable
 # Notion will be only on workspace 9
-#assign [class="Brave-browser" instance="www.notion.so"] $ws9
-#assign [class="www.notion.so"] $ws9
 
 ##-- Autostart ----------------------------------
 exec_always --no-startup-id ~/.config/i3/scripts/i3_autostart

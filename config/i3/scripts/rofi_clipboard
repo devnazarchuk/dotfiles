@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Advanced Rofi Clipboard with Visual Tabs, Arrow Nav, File Support & Clear History
+# Advanced Rofi Clipboard with Visual Tabs, Arrow Nav, File Support & Clear History Tab
 CACHE_DIR="/tmp/greenclip"
 THEME_MAIN="$HOME/.config/i3/theme/rofi/launcher.rasi"
 THEME_MEDIA="$HOME/.config/i3/theme/rofi/media.rasi"
@@ -8,9 +8,10 @@ CURRENT_VIEW=${1:-Main}
 
 # Pango markup for visual tabs
 case "$CURRENT_VIEW" in
-    Main)  TABS="<b><u>  Main  </u></b> |   Media   |   Files  " ;;
-    Media) TABS="  Main   | <b><u>  Media  </u></b> |   Files  " ;;
-    Files) TABS="  Main   |   Media   | <b><u>  Files  </u></b> " ;;
+    Main)  TABS="<b><u>  Main  </u></b> |   Media   |   Files   |   Clear  " ;;
+    Media) TABS="  Main   | <b><u>  Media  </u></b> |   Files   |   Clear  " ;;
+    Files) TABS="  Main   |   Media   | <b><u>  Files  </u></b> |   Clear  " ;;
+    Clear) TABS="  Main   |   Media   |   Files   | <b><u>  Clear  </u></b>" ;;
 esac
 
 # Function to detect if a line is a file path
@@ -26,7 +27,6 @@ is_file_path() {
 }
 
 list_main() {
-    echo -en "Clear History\0icon\x1fedit-clear\n"
     greenclip print | while read -r line; do
         if [ -z "$line" ]; then continue; fi
         icon="text-x-generic"
@@ -88,17 +88,33 @@ list_files() {
     done
 }
 
+list_clear() {
+    echo -en "🗑️ Clear Clipboard History\0icon\x1fedit-clear\n"
+    echo -en "📂 Clear Archive Folder\0icon\x1ffolder-open\n"
+    echo -en "⚠️ Clear Everything\0icon\x1fdialog-warning\n"
+}
+
 handle_selection() {
     local sel="$1"
     [ -z "$sel" ] && exit 0
     
-    # Check for Clear History
-    if [ "$sel" = "Clear History" ]; then
+    # Check for Clear actions
+    if [[ "$sel" == *"Clear Clipboard History"* ]]; then
+        pkill -f greenclip
+        greenclip clear
+        greenclip daemon &
+        notify-send "Clipboard" "History cleared!"
+        exit 0
+    elif [[ "$sel" == *"Clear Archive Folder"* ]]; then
+        rm -rf /home/arch/clipboard/*
+        notify-send "Clipboard" "Archive cleared!"
+        exit 0
+    elif [[ "$sel" == *"Clear Everything"* ]]; then
         pkill -f greenclip
         greenclip clear
         greenclip daemon &
         rm -rf /home/arch/clipboard/*
-        notify-send "Clipboard" "History cleared!"
+        notify-send "Clipboard" "All data cleared!"
         exit 0
     fi
     
@@ -141,11 +157,13 @@ if [ $ret -eq 10 ]; then
     case "$CURRENT_VIEW" in
         Main) exec "$0" Media ;;
         Media) exec "$0" Files ;;
-        Files) exec "$0" Main ;;
+        Files) exec "$0" Clear ;;
+        Clear) exec "$0" Main ;;
     esac
 elif [ $ret -eq 11 ]; then
     case "$CURRENT_VIEW" in
-        Main) exec "$0" Files ;;
+        Main) exec "$0" Clear ;;
+        Clear) exec "$0" Files ;;
         Files) exec "$0" Media ;;
         Media) exec "$0" Main ;;
     esac
