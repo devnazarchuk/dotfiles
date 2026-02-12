@@ -28,7 +28,7 @@ fi
 sudo pacman -S --needed i3-wm i3status i3blocks dmenu rofi picom feh xorg-xsetroot \
     polybar dunst ttf-ubuntu-font-family ttf-jetbrains-mono-nerd kitty \
     dex xss-lock network-manager-applet brightnessctl playerctl \
-    sddm plymouth qt5-quickcontrols2 layer-shell-qt
+    sddm plymouth qt5-quickcontrols2 layer-shell-qt sysstat
 yay -S --needed i3lock-color layer-shell-qt5
 
 # ===============================================
