@@ -8,6 +8,6 @@ RASI="$DIR/theme/rofi/launcher.rasi"
 
 # Run
 rofi \
-    -show drun \
+    -show combi \
 	-kb-cancel Alt-F1 \
 	-theme ${RASI}

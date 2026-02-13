@@ -4,12 +4,13 @@
 
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "drun,run,filebrowser,window";
+	modi:                       "drun,run,filebrowser,window,calc";
     show-icons:                 false;
     display-drun:               " Apps";
     display-run:                " Run";
     display-filebrowser:        " Files";
     display-window:             " Windows";
+    display-calc:               "calculator Calc&Curr";
 	drun-display-format:        "{name}";
 	window-format:              "{c} · {t}";
 }
