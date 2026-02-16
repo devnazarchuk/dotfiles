@@ -247,4 +247,5 @@ exec --no-startup-id ~/.config/i3/scripts/clipboard_archiver.sh
 exec_always --no-startup-id ~/.config/i3/scripts/battery_monitor.sh
 exec_always --no-startup-id ~/.config/i3/scripts/media_inhibit.sh
 exec --no-startup-id gnome-keyring-daemon --start --components=secrets
-exec --no-startup-id warp-cli connect
+# Закоментовано, бо через це часто доводиться підтверджувати Google-аккаунти
+# exec --no-startup-id warp-cli connect
