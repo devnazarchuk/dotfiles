@@ -1,6 +1,6 @@
-# My Arch i3 Rice
+# My Arch i3 & Hyprland Rice
 
-A lightweight, beautiful, and functional i3wm setup based on Catppuccin Mocha.
+A lightweight, beautiful, and functional setup. The legacy i3wm setup is preserved in the `i3` branch. The `main` branch is now moving towards Hyprland.
 
 ## Screenshots
 ![Main Preview](assets/preview.png)
@@ -9,11 +9,11 @@ A lightweight, beautiful, and functional i3wm setup based on Catppuccin Mocha.
 
 
 ## Features
-- **Window Manager**: i3-wm (with gaps and rounded corners via picom)
-- **Bar**: Polybar (Catppuccin theme)
+- **Window Managers**: i3-wm (Legacy) & Hyprland (Main)
+- **Bar**: Polybar (i3) & Waybar (Hyprland)
 - **Launcher**: Rofi
-- **Notifications**: Dunst
-- **Keybindings**: Hyprland-like workflow with consistent shortcuts
+- **Notifications**: Dunst (i3) & SwayNC (Hyprland)
+- **Keybindings**: Consistent experience across i3 and Hyprland
 - **Gestures**: 3-finger and 4-finger swipe support
 
 ## Quick Install (Recommended)
