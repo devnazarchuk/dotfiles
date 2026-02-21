@@ -7,81 +7,18 @@
 # and also, ensure that packages are present in AUR and official Arch Repo
 
 # add packages wanted here
-Extra=(
+# Source the global functions script
+if ! source "$(dirname "$(readlink -f "$0")")/Global_functions.sh"; then
+  echo "Failed to source Global_functions.sh"
+  exit 1
+fi
 
-)
-
-hypr_package=( 
-  #aylurs-gtk-shell
-  bc
-  cliphist
-  curl 
-  grim 
-  gvfs 
-  gvfs-mtp
-  hyprpolkitagent
-  imagemagick
-  inxi 
-  jq
-  kitty
-  kvantum
-  libspng
-  nano  
-  network-manager-applet 
-  pamixer 
-  pavucontrol
-  playerctl
-  python-requests
-  python-pyquery
-  qt5ct
-  qt6ct
-  qt6-svg
-  rofi
-  slurp 
-  swappy 
-  swaync 
-  swww
-  unzip # needed later
-  wallust 
-  waybar
-  wget
-  wl-clipboard
-  wlogout
-  xdg-user-dirs
-  xdg-utils 
-  yad
-)
-
-# the following packages can be deleted. however, dotfiles may not work properly
-hypr_package_2=(
-  brightnessctl 
-  btop
-  cava
-  loupe
-  fastfetch
-  gnome-system-monitor
-  mousepad 
-  mpv
-  mpv-mpris 
-  nvtop
-  nwg-look
-  nwg-displays
-  pacman-contrib
-  qalculate-gtk
-  yt-dlp
-)
-
-# List of packages to uninstall as it conflicts some packages
-uninstall=(
-  aylurs-gtk-shell
-  dunst
-  cachyos-hyprland-settings
-  mako
-  rofi
-  wallust-git
-  rofi-lbonn-wayland
-  rofi-lbonn-wayland-git
-)
+# Load package lists
+hypr_package=($(read_pkg_list "pkg-lists/main.lst"))
+hypr_package_2=($(read_pkg_list "pkg-lists/extra.lst"))
+hypr_apps=($(read_pkg_list "pkg-lists/apps.lst"))
+uninstall=($(read_pkg_list "pkg-lists/conflicting.lst"))
+Extra=()
 
 ## WARNING: DO NOT EDIT BEYOND THIS LINE IF YOU DON'T KNOW WHAT YOU ARE DOING! ##
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -90,16 +27,17 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PARENT_DIR="$SCRIPT_DIR/.."
 cd "$PARENT_DIR" || { echo "${ERROR} Failed to change directory to $PARENT_DIR"; exit 1; }
 
-# Source the global functions script
-if ! source "$(dirname "$(readlink -f "$0")")/Global_functions.sh"; then
-  echo "Failed to source Global_functions.sh"
-  exit 1
-fi
 
 
 
 # Set the name of the log file to include the current date and time
 LOG="Install-Logs/install-$(date +%d-%H%M%S)_hypr-pkgs.log"
+
+# Determine if apps should be installed
+install_apps=0
+if [ "$1" == "--install-apps" ]; then
+    install_apps=1
+fi
 
 # conflicting packages removal
 overall_failed=0
@@ -120,7 +58,12 @@ printf "\n%.0s" {1..1}
 # Installation of main components
 printf "\n%s - Installing ${SKY_BLUE}KooL's Hyprland necessary packages${RESET} .... \n" "${NOTE}"
 
-for PKG1 in "${hypr_package[@]}" "${hypr_package_2[@]}" "${Extra[@]}"; do
+pkg_list=("${hypr_package[@]}" "${hypr_package_2[@]}" "${Extra[@]}")
+if [ $install_apps -eq 1 ]; then
+    pkg_list+=("${hypr_apps[@]}")
+fi
+
+for PKG1 in "${pkg_list[@]}"; do
   install_package "$PKG1" "$LOG"
 done
 

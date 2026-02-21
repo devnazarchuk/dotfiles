@@ -70,7 +70,19 @@ install_package_pacman() {
   fi
 }
 
-ISAUR=$(command -v yay || command -v paru)
+# Detect AUR helper
+ISAUR=$(command -v yay || command -v paru || true)
+
+# Function to ensure an AUR helper is available
+check_aur_helper() {
+    if [ -z "$ISAUR" ]; then
+        ISAUR=$(command -v yay || command -v paru || true)
+    fi
+    if [ -z "$ISAUR" ]; then
+        echo -e "${ERROR} Neither yay nor paru found. Please install one of them first."
+        return 1
+    fi
+}
 # Function to install packages with either yay or paru
 install_package() {
   if $ISAUR -Q "$1" &>> /dev/null ; then
@@ -129,4 +141,15 @@ uninstall_package() {
     echo -e "${INFO} Package $pkg not installed, skipping."
   fi
   return 0
+}
+
+# Function to read package list from a file
+read_pkg_list() {
+    local file="$1"
+    if [ -f "$file" ]; then
+        grep -v '^[[:space:]]*#' "$file" | grep -v '^[[:space:]]*$'
+    else
+        echo "Error: Package list file $file not found." >&2
+        return 1
+    fi
 }

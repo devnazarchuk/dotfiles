@@ -1,0 +1,14 @@
+# Essential fonts
+noto-fonts
+noto-fonts-emoji
+otf-font-awesome 
+
+# Primary UI/Terminal font (Clean & Lighter)
+ttf-jetbrains-mono
+
+# Nerd Font symbols (Required for icons in Waybar/Fastfetch)
+# Replacing the 220MB patched font with symbols-only to save ~200MB
+ttf-nerd-fonts-symbols-mono
+
+# Optional but common
+# ttf-fira-code
