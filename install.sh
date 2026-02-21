@@ -141,4 +141,4 @@ update-desktop-database ~/.local/share/applications 2>/dev/null
 fc-cache -fv
 
 echo ":: Installation Complete!"
-echo ":: Make sure to reload your window manager (Super+Shift+R)."
+echo ":: Make sure to log out and select Hyprland from your session manager."

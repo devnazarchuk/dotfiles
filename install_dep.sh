@@ -23,26 +23,27 @@ fi
 #yay -S --needed ticktick
 
 # ===============================================
-# 2️⃣ i3 / UI / Panels / Status
+# 2️⃣ Hyprland / UI / Panels / Status
 # ===============================================
-sudo pacman -S --needed i3-wm i3status i3blocks dmenu rofi picom feh xorg-xsetroot \
-    polybar dunst ttf-ubuntu-font-family ttf-jetbrains-mono-nerd kitty \
-    dex xss-lock network-manager-applet brightnessctl playerctl \
-    sddm plymouth qt5-quickcontrols2 layer-shell-qt sysstat
-yay -S --needed i3lock-color layer-shell-qt5
+sudo pacman -S --needed hyprland waybar swaync rofi-wayland swww \
+    ttf-ubuntu-font-family ttf-jetbrains-mono-nerd kitty \
+    network-manager-applet brightnessctl playerctl \
+    sddm plymouth qt5-quickcontrols2 layer-shell-qt \
+    hypridle hyprlock hyprpicker xdg-desktop-portal-hyprland
+yay -S --needed matugen-bin hyprpolkitagent-bin
 
 # ===============================================
 # 3️⃣ Keyboard / Mouse / Input
 # ===============================================
-sudo pacman -S --needed xinput xf86-input-libinput libinput-gestures wmctrl xdotool xcape
+sudo pacman -S --needed libinput-gestures wmctrl xdotool
 
 # ===============================================
 # 4️⃣ Screenshots / Clipboard / OCR
 # ===============================================
-sudo pacman -S --needed flameshot maim slop xclip tesseract
+sudo pacman -S --needed flameshot grim slurp wl-clipboard tesseract
 sudo pacman -S --needed tesseract-data-eng tesseract-data-deu tesseract-data-ukr tesseract-data-rus
-yay -S --needed gimagereader normcap
-yay -S --needed greenclip rofi-emoji xcolor
+yay -S --needed normcap
+yay -S --needed greenclip rofi-emoji-wayland
 
 # ===============================================
 # 5️⃣ Archives / File Manager / Keyring
