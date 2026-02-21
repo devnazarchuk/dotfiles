@@ -87,7 +87,7 @@ noto-fonts-cjk
 noto-fonts-emoji
 nss-mdns
 nvim
-obs-studio
+# obs-studio
 obsidian
 omarchy-nvim
 omarchy-walker
