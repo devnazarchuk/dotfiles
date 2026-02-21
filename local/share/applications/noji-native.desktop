@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Noji
-Comment=Language learning with decks
-Exec=brave --app=https://noji.io/decks --name=noji-app
-Icon=brave-browser
-Terminal=false
-Type=Application
-Categories=Education;Utility;
-StartupWMClass=noji.io

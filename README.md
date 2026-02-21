@@ -1,66 +1,9 @@
-# My Arch i3 & Hyprland Rice
+# Omarchy
 
-A lightweight, beautiful, and functional setup. The legacy i3wm setup is preserved in the `i3` branch. The `main` branch is now moving towards Hyprland.
+Omarchy is a beautiful, modern & opinionated Linux distribution by DHH.
 
-## Screenshots
-![Main Preview](assets/preview.png)
-![Rofi search](assets/preview1.png)
+Read more at [omarchy.org](https://omarchy.org).
 
+## License
 
-
-## Features
-- **Window Managers**: i3-wm (Legacy) & Hyprland (Main)
-- **Bar**: Polybar (i3) & Waybar (Hyprland)
-- **Launcher**: Rofi
-- **Notifications**: Dunst (i3) & SwayNC (Hyprland)
-- **Keybindings**: Consistent experience across i3 and Hyprland
-- **Gestures**: 3-finger and 4-finger swipe support
-
-## Quick Install (Recommended)
-
-1.  **Install Packages**:
-    ```bash
-    ```bash
-    # Install all dependencies (Official + AUR)
-    chmod +x install_dep.sh
-    ./install_dep.sh
-    ```
-
-2.  **Run Install Script**:
-    This script will safely backup your existing configs (creating `_backup`, `_backup1`, etc.) and install the new ones.
-    ```bash
-    chmod +x install.sh
-    ./install.sh
-    ```
-
-3.  **Final Setup**:
-    ```bash
-    # Setup Gestures group
-    sudo gpasswd -a $USER input
-    
-    # Enable Gestures
-    libinput-gestures-setup start
-    ```
-
-4.  **Restart**:
-    Log out and log back in (or reboot) to apply changes and group permissions.
-
-## Backup Logic
-The `install.sh` script checks for existing configurations. If any conflicts are found (`~/.config/i3`, etc.), it moves ALL conflicting items to a new backup set with a unique suffix (e.g., `_backup`, `_backup1`, `_backup2`) so you never lose your old data.
-
-## Keybindings Cheat Sheet
-See `config/i3/config` for the full list.
-- `Super + Return`: Terminal
-- `Super + Space`: Launcher
-- `Super + W`: Browser (Brave)
-- `Super + T`: Telegram
-- `Super + D`: TickTick
-- `Super + A`: Anki
-- `Super + C`: Custom Code Editor
-- `Super + V`: Clipboard History
-- `Super + Shift + C`: Color Picker
-- `Super + Shift + X`: OCR Selection
-
-Reload i3 (`Super+Shift+R`) or reboot.
-
-Enjoy!
+Omarchy is released under the [MIT License](https://opensource.org/licenses/MIT).

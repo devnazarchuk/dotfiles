@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Notion
-Comment=Workplace for notes and tasks
-Exec=brave --app=https://www.notion.so --name=notion-app
-Icon=notion
-Terminal=false
-Type=Application
-Categories=Office;Utility;
-StartupWMClass=www.notion.so
