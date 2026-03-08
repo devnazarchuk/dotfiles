@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Шлях до кольорів Omarchy
+COLORS_FILE="$HOME/.config/omarchy/current/theme/colors.toml"
+
+# Функція для витягування кольору з TOML (прибираємо # та лапки)
+get_color() {
+    grep "^$1 =" "$COLORS_FILE" | cut -d'"' -f2 | sed 's/#//'
+}
+
+# Отримуємо основні кольори
+BG=$(get_color "background")
+FG=$(get_color "foreground")
+ACCENT=$(get_color "accent")
+SEL_BG=$(get_color "selection_background")
+SEL_FG=$(get_color "selection_foreground")
+
+# Запускаємо fuzzel з динамічними кольорами
+# Додаємо "ff" в кінці (альфа-канал), бо fuzzel вимагає RRGGBBAA
+cliphist list | fuzzel --dmenu \
+    --background="${BG}ff" \
+    --text="${FG}ff" \
+    --match="${ACCENT}ff" \
+    --selection="${SEL_BG}ff" \
+    --selection-text="${SEL_FG}ff" \
+    --border="${ACCENT}ff" \
+    --placeholder "Clipboard history..." \
+    | cliphist decode | wl-copy
