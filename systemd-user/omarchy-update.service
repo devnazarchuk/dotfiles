@@ -1,0 +1,13 @@
+[Unit]
+Description=Weekly Omarchy and System Update
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/notify-send "Omarchy Update" "Weekly system update is starting..." -i update-low
+ExecStart=/home/arch/.local/share/omarchy/bin/omarchy-update --confirm
+ExecPost=/usr/bin/notify-send "Omarchy Update" "System update completed successfully." -i update-none
+
+[Install]
+WantedBy=default.target
