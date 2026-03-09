@@ -1,29 +1,29 @@
 #!/bin/bash
 
-# Шлях до кольорів Omarchy
+# Path to Omarchy colors
 COLORS_FILE="$HOME/.config/omarchy/current/theme/colors.toml"
 
-# Функція для витягування кольору з TOML
+# Function to extract color from TOML
 get_color() {
     grep "^$1 =" "$COLORS_FILE" | cut -d'"' -f2 | sed 's/#//'
 }
 
-# Отримуємо основні кольори
+# Get base colors
 BG=$(get_color "background")
 FG=$(get_color "foreground")
 ACCENT=$(get_color "accent")
 SEL_BG=$(get_color "selection_background")
 SEL_FG=$(get_color "selection_foreground")
 
-# Перевіряємо, чи отримали кольори, інакше ставимо дефолти
+# Check if colors were received, otherwise use defaults
 BG=${BG:-ffffff}
 FG=${FG:-000000}
 ACCENT=${ACCENT:-1e66f5}
 SEL_BG=${SEL_BG:-dc8a78}
 SEL_FG=${SEL_FG:-ffffff}
 
-# Запускаємо fuzzel з правильними параметрами кольорів
-# Додаємо "ff" для альфа-каналу
+# Launch fuzzel with correct color parameters
+# Add "ff" for alpha channel
 cliphist list | fuzzel --dmenu \
     --background-color="${BG}ff" \
     --text-color="${FG}ff" \
