@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Get current hour
+HOUR=$(date +%H)
+
+# Schedule: 07:00 - 18:00 (light theme), after 18:00 - dark theme
+if [ "$HOUR" -ge 7 ] && [ "$HOUR" -lt 18 ]; then
+    # Light theme
+    /home/arch/.local/share/omarchy/bin/omarchy-theme-set "Catppuccin Latte"
+    notify-send "Omarchy Theme" "Switching to light mode (Catppuccin Latte)" -i theme-light
+else
+    # Dark theme
+    /home/arch/.local/share/omarchy/bin/omarchy-theme-set "Catppuccin"
+    notify-send "Omarchy Theme" "Switching to dark mode (Catppuccin)" -i theme-dark
+fi

@@ -1,0 +1,13 @@
+[Unit]
+Description=Auto Power Profile Switcher
+After=graphical-session.target
+
+[Service]
+# Вказуємо шлях до скрипта
+ExecStart=%h/.config/hypr/scripts/auto-power-profile.sh
+# Перезапускати завжди, якщо впаде
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target

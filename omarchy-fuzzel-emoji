@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Path to Omarchy colors
+COLORS_FILE="$HOME/.config/omarchy/current/theme/colors.toml"
+
+# Function to extract color from TOML
+get_color() {
+    grep "^$1 =" "$COLORS_FILE" | cut -d'"' -f2 | sed 's/#//'
+}
+
+# Get base colors
+BG=$(get_color "background")
+FG=$(get_color "foreground")
+ACCENT=$(get_color "accent")
+SEL_BG=$(get_color "selection_background")
+SEL_FG=$(get_color "selection_foreground")
+
+# Check if colors were received, otherwise use defaults
+BG=${BG:-ffffff}
+FG=${FG:-000000}
+ACCENT=${ACCENT:-1e66f5}
+SEL_BG=${SEL_BG:-dc8a78}
+SEL_FG=${SEL_FG:-ffffff}
+
+# Emoji list (Expanded)
+EMOJIS="😀 😁 😂 🤣 😃 😄 😅 😆 😉 😊 😋 😎 😍 😘 😗 😙 😚 🙂 🤗 🤩 🤔 🤨 😐 😑 😶 🙄 😏 😣 😥 😮 🤐 😯 😪 😫 😴 😌 😛 😜 😝 🤤 😒 😓 😔 😕 🙃 🤑 😲 ☹️ 🙁 😖 😞 😟 😤 😢 😭 😦 😧 😨 😩 🤯 😬 😰 😱 🥵 🥶 😳 🤪 😵 😡 😠 🤬 😷 🤒 🤕 🤢 🤮 🤧 😇 🤠 🤡 🥳 🥴 🥺 🤥 🤫 🤭 🧐 🤓 😈 👿 👹 👺 💀 👻 👽 🤖 💩 😺 😸 😹 😻 😼 😽 🙀 😿 😾 🤲 👐 🙌 👏 🤝 👍 👎 👊 ✊ 🤛 🤜 🤞 ✌️ 🤟 🤘 👌 👈 👉 👆 👇 ☝️ ✋ 🤚 🖐 🖖 👋 🤙 💪 🖕 ✍️ 🙏 💍 💄 💋 👄 👅 👂 👃 👣 👁 👀 🧠 🗣 👤 👥 👶 👧 🧒 👦 👩 🧑 👨 👱‍♀️ 👱‍♂️ 🧔 👵 🧓 👴 👲 👳‍♀️ 👳‍♂️ 🧕 👮‍♀️ 👮‍♂️ 👷‍♀️ 👷‍♂️ 💂‍♀️ 💂‍♂️ 🕵️‍♀️ 🕵️‍♂️ 👩‍⚕️ 👨‍⚕️ 👩‍🌾 👨‍🌾 👩‍🍳 👨‍🍳 👩‍🎓 👨‍🎓 👩‍🎤 👨‍🎤 👩‍🏫 👨‍🏫 👩‍🏭 👨‍ factory 👩‍💻 👨‍💻 👩‍💼 👨‍💼 👩‍🔧 👨‍🔧 👩‍🔬 👨‍🔬 👩‍🎨 👨‍🎨 👩‍🚒 👨‍ Fire 👩‍✈️ 👨‍✈️ 👩‍🚀 👨‍🚀 👩‍⚖️ 👨‍⚖️ 👰 🤵 👸 🤴 🤶 🎅 🧙‍♀️ 🧙‍♂️ 🧝‍♀️ 🧝‍♂️ 🧛‍♀️ 🧛‍♂️ 🧟‍♀️ 🧟‍♂️ 🧞‍♀️ 🧞‍♂️ 🧜‍♀️ 🧜‍♂️ 🧚‍♀️ 🧚‍♂️ 👼 🤰 🤱 🙇‍♀️ 🙇‍♂️ 💁‍♀️ 💁‍♂️ 🙅‍♀️ 🙅‍♂️ 🙆‍♀️ 🙆‍♂️ 🙋‍♀️ 🙋‍♂️ 🤦‍♀️ 🙋‍♀️ 💆‍♂️ 💇‍♀️ 💇‍♂️ 🚶‍♀️ 🚶‍♂️ 🏃‍♀️ 🏃‍♂️ 💃 🕺 👯‍♀️ 👯‍♂️ 🧖‍♀️ 🧖‍♂️ 🧗‍♀️ 🧗‍♂️ 🧘‍♀️ 🧘‍♂️ 🛀 🛌 🕴 🗣 👤 👥 🤺 🏇 ⛷ 🏂 🏌️‍♀️ 🏌️‍♂️ 🏄‍♀️ 🏄‍♂️ 🚣‍♀️ 🚣‍♂️ 🏊‍♀️ 🏊‍♂️ ⛹️‍♀️ ⛹️‍♂️ 🏋️‍♀️ 🏋️‍♂️ 🚴‍♀️ 🚴‍♂️ 🚵‍♀️ 🚵‍♂️ 🏎 🏍 🤸‍♀️ 🤸‍♂️ 🤼‍♀️ 🤼‍♂️ 🤽‍♀️ 🤽‍♂️ 🤾‍♀️ 🤾‍♂️ 🤹‍♀️ 🤹‍♂️ 👫 👬 👭 💏 💑 👪 🧥 👚 👕 👖 👔 👗 👙 👘 👠 👡 👢 👞 👟 🧦 🧤 🧣 🎩 🧢 👒 🎓 ⛑ 👑 👝 👛 👜 💼 🎒 👓 🕶 🌂 🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧 🐦 🐤 🐣 🐥 🦆 🦅 🦉 🦇 🐺 🐗 🐴 🦄 🐝 🐛 🦋 🐌 🐚 🐞 🐜 🦗 🕷 🕸 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑 🦐 🦀 🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🐘 🦏 🐪 🐫 🦒 🐃 🐂 🐄 🐎 🐖 🐏 🐑 🐐 🦌 🐕 🐩 🐈 🐓 🦃 🕊 🐇 🐁 🐀 🐿 🦔 🐾 🐉 🐲 🌵 🎄 🌲 🌳 🌴 🌱 🌿 ☘️ 🍀 🎍 🎋 🍃 🍂 🍁 🍄 🌾 💐 🌷 🌹 🥀 🌺 🌸 🌼 🌻 🌞 🌝 🌛 🌜 🌚 🌕 🌖 🌗 🌘 🌑 🌒 🌓 🌔 🌙 🌎 🌍 🌏 🪐 💫 ⭐️ 🌟 ✨ ⚡️ ☄️ 💥 🔥 🌪 🌈 ☀️ 🌤 ⛅️ 🌥 ☁️ 🌦 🌧 ⛈ 🌩 🌨 ❄️ ☃️ ⛄️ 🌬 💨 💧 💦 ☔️ ☂️ 🌊 🌫"
+
+# Launch fuzzel with correct color parameters and grid layout
+SELECTED=$(echo $EMOJIS | tr ' ' '\n' | fuzzel --dmenu \
+    --background-color="${BG}ee" \
+    --text-color="${FG}ff" \
+    --match-color="${ACCENT}ff" \
+    --selection-color="${SEL_BG}ff" \
+    --selection-text-color="${SEL_FG}ff" \
+    --border-color="${ACCENT}ff" \
+    --placeholder "Search Emojis..." \
+    --width 30 --columns 10 --font "Sans:size=20")
+
+if [ -n "$SELECTED" ]; then
+    echo -n "$SELECTED" | wl-copy
+    # notify-send "Emoji" "Copied $SELECTED" -i face-smile
+fi

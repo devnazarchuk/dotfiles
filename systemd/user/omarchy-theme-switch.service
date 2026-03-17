@@ -1,0 +1,10 @@
+[Unit]
+Description=Switch Omarchy Theme (Light/Dark)
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/arch/.local/bin/omarchy-theme-auto-switch
+
+[Install]
+WantedBy=default.target
