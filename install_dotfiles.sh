@@ -48,6 +48,36 @@ if [ -d "$DOTFILES_DIR/systemd/user" ]; then
     systemctl --user daemon-reload
 fi
 
+# --- 3. UWSM CONFIGURATION ---
+if [ -d "$DOTFILES_DIR/uwsm" ]; then
+    echo "🔧 Setting up uwsm configuration..."
+    if [ -e "$CONFIG_DIR/uwsm" ] && [ ! -L "$CONFIG_DIR/uwsm" ]; then
+        echo "    [!] Found existing uwsm folder. Backing up to: uwsm.bak"
+        mv "$CONFIG_DIR/uwsm" "$CONFIG_DIR/uwsm.bak"
+    fi
+    ln -sfn "$DOTFILES_DIR/uwsm" "$CONFIG_DIR/uwsm"
+fi
+
+# --- 4. DESKTOP APPLICATIONS ---
+if [ -d "$DOTFILES_DIR/applications" ]; then
+    echo "🖥️  Installing custom desktop applications..."
+    mkdir -p "$HOME/.local/share/applications"
+    for app in "$DOTFILES_DIR/applications"/*.desktop; do
+        if [ -f "$app" ]; then
+            app_name=$(basename "$app")
+            echo "  Symlinking $app_name..."
+            ln -sfn "$app" "$HOME/.local/share/applications/$app_name"
+        fi
+    done
+fi
+
+# --- 5. PERMISSIONS ---
+echo "🔓 Ensuring scripts are executable..."
+if [ -d "$DOTFILES_DIR/scripts" ]; then
+    chmod +x "$DOTFILES_DIR/scripts"/*.sh 2>/dev/null || true
+fi
+chmod +x "$DOTFILES_DIR/install_dotfiles.sh"
+
 # Any additional files or fonts can also be installed from here,
 # if you add them to the same repository. For example:
 # if [ -d "$DOTFILES_DIR/fonts" ]; then

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Gmail
+Exec=/home/arch/.config/hypr/scripts/gmail-handler.sh %u
+Icon=/home/arch/.local/share/applications/icons/Gmail.png
+Categories=Network;Email;   
+MimeType=x-scheme-handler/mailto;
