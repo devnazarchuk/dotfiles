@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/home/arch/.local/bin/omarchy-theme-auto-switch
+ExecStart=/home/arch/.config/hypr/omarchy-theme-auto-switch
 
 [Install]
 WantedBy=default.target
