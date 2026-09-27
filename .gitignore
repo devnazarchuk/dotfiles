@@ -1,0 +1,92 @@
+# 1. Block everything in $HOME by default
+/*
+/.*
+
+# 2. Allow root repository files & assets
+!.gitignore
+!README.md
+!.zshrc
+!install.sh
+!wallpaper/
+!wallpaper/**
+!screenshots/
+!screenshots/**
+
+# 3. Allow .config container directory itself
+!.config/
+
+# 4. Ignore all files/folders inside .config by default
+.config/*
+
+# 5. Unignore ONLY clean UI & App Configs
+!.config/alacritty/
+!.config/alacritty/**
+!.config/btop/
+!.config/btop/**
+!.config/cava/
+!.config/cava/**
+!.config/easyeffects/
+!.config/easyeffects/**
+!.config/fastfetch/
+!.config/fastfetch/**
+!.config/ghostty/
+!.config/ghostty/**
+!.config/gtk-3.0/
+!.config/gtk-3.0/**
+!.config/gtk-4.0/
+!.config/gtk-4.0/**
+!.config/hypr/
+!.config/hypr/**
+!.config/kitty/
+!.config/kitty/**
+!.config/Kvantum/
+!.config/Kvantum/**
+!.config/matugen/
+!.config/matugen/**
+!.config/mpv/
+!.config/mpv/**
+!.config/neofetch/
+!.config/neofetch/**
+!.config/nvim/
+!.config/nvim/**
+!.config/qt5ct/
+!.config/qt5ct/**
+!.config/qt6ct/
+!.config/qt6ct/**
+!.config/rofi/
+!.config/rofi/**
+!.config/spicetify/
+!.config/spicetify/**
+!.config/swaync/
+!.config/swaync/**
+!.config/Thunar/
+!.config/Thunar/**
+!.config/waybar/
+!.config/waybar/**
+!.config/wlogout/
+!.config/wlogout/**
+!.config/wlogout-img/
+!.config/wlogout-img/**
+!.config/zed/
+!.config/zed/**
+
+# 6. Unignore safe individual config files
+!.config/kdeglobals
+!.config/mimeapps.list
+
+# 7. Explicit Safety Exclusions (Tokens, Logs, Cache)
+*.log
+*.tmp
+.DS_Store
+.config/hypr/hyprland.log
+.config/matugen/cache/
+.config/spicetify/Backup/
+.config/spicetify/Extracted/
+.config/zen/
+.config/vesktop/
+.config/mozilla/
+.config/obsidian/
+
+# 8. System Configs (SDDM & GRUB)
+!system/
+!system/**

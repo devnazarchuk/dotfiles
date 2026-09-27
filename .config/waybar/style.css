@@ -1,0 +1,175 @@
+/* ==========================================================================
+   Import Matugen Dynamic Colors
+   ========================================================================== */
+@import url("colors.css");
+
+/* Base Static Definitions */
+@define-color bg-dark          rgba(26, 27, 38, 0.45);
+@define-color tooltip-bg       mix(@matugen-accent, @bg-dark, 0.18);
+@define-color border-color     @matugen-accent;
+@define-color text-main        @matugen-accent;
+@define-color text-muted       @matugen-accent;
+
+/* ==========================================================================
+   Global Settings
+   ========================================================================== */
+* {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    box-shadow: none;
+    text-shadow: none;
+    color: @matugen-accent;
+}
+
+/* Base Bar Container */
+window#waybar {
+    background: @bg-dark;
+    border: 0px solid @matugen-accent;
+    color: @matugen-accent;
+    border-radius: 12px;
+}
+
+/* Tooltip Base Container */
+tooltip {
+    background: @tooltip-bg;
+    border: 1px solid alpha(@matugen-accent, 0.35);
+    border-radius: 14px;
+    padding: 12px 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+}
+
+/* Default font stack for calendar */
+#calendar,
+#calendar * {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+}
+
+/* Subtle text shadow for light calendar labels */
+tooltip label {
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Reset shadows and add slight rounding for current day highlight */
+#calendar .today {
+    text-shadow: none;
+    border-radius: 4px;
+}
+/* Common Module Padding & Margin */
+#custom-arch,
+#workspaces,
+#mpris,
+#custom-cava,
+#clock,
+#custom-weather,
+#cpu,
+#custom-gpu,
+#custom-vitals,
+#backlight,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery,
+#custom-notification,
+#custom-power {
+    background: transparent;
+    padding: 0px 5px;
+    margin: 0px 1px;
+    color: @matugen-accent;
+}
+
+/* ==========================================================================
+   Left Modules: Arch Logo & Workspaces
+   ========================================================================== */
+#custom-arch {
+    font-size: 17px;
+    padding: 0px 5px;
+    margin-left: 5px;
+    margin-right: -3px;
+}
+
+#custom-arch label {
+    font-size: 18px;
+
+}
+
+#workspaces {
+    background: transparent;
+    padding: 3px;
+    margin-right: 8px;
+}
+
+#workspaces button {
+    padding: 0px 0px;
+    color: @matugen-accent;
+    border-radius: 6px;
+    background: transparent;
+    font-size: 11px;
+}
+
+#workspaces button:not(.active) {
+    /* Styles for inactive workspaces */
+    opacity: 0.4;
+}
+
+
+/* ==========================================================================
+   Media Player & CAVA
+   ========================================================================== */
+#mpris {
+    color: @matugen-accent;
+    font-style: normal;
+    padding: 0px 5px;
+}
+
+#custom-cava {
+    color: @matugen-accent;
+    padding: 0px 5px;
+}
+
+/* ==========================================================================
+   Center Module: Clock
+   ========================================================================== */
+#clock {
+    color: @matugen-accent;
+    font-weight: bold;
+    padding: 0px 8px;
+}
+
+/* ==========================================================================
+   Right Modules: System Stats & Hardware
+   ========================================================================== */
+#custom-weather,
+#cpu,
+#custom-gpu,
+#temperature,
+#backlight,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery,
+#custom-notification {
+    color: @matugen-accent;
+}
+
+/* Status Alert Overrides */
+#temperature.critical,
+#network.disconnected,
+#battery.critical:not(.charging),
+#custom-power {
+    color: @matugen-accent;
+}
+
+#pulseaudio.muted,
+#bluetooth.disabled {
+    color: @matugen-accent;
+}
+
+#custom-power {
+    /* Increased right padding/margin to pull power icon away from the right edge */
+    padding-right: 12px;
+    margin-right: 3px;
+    color: @matugen-accent;
+}
