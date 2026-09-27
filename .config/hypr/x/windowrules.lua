@@ -18,7 +18,7 @@
 -- Satty screenshot editor overlay
 hl.window_rule({
     name  = "satty-overlay",
-    match = { 
+    match = {
         class = ".*satty.*",
     },
 
@@ -26,8 +26,76 @@ hl.window_rule({
     float = true,
 })
 
+-- Floating utility dialogs
+hl.window_rule({
+    name  = "float-pavucontrol",
+    match = { class = ".*pavucontrol.*" },
+    float = true,
+    center = true,
+    size = "1000 650",
+})
+
+hl.window_rule({
+    name  = "float-nm-editor",
+    match = { class = "^(nm-connection-editor)$" },
+    float = true,
+    center = true,
+    size = "900 550",
+})
+
+hl.window_rule({
+    name  = "float-file-roller",
+    match = { class = "^(org.gnome.FileRoller)$" },
+    float = true,
+    center = true,
+    size = "1000 600",
+})
+
+hl.window_rule({
+    name  = "float-blueman",
+    match = { class = "^(blueman-manager)$" },
+    float = true,
+    center = true,
+    size = "900 550",
+})
+
+-- Browser PiP
+hl.window_rule({
+    name  = "float-pip",
+    match = { title = "^(Picture-in-Picture)$" },
+    float = true,
+    pin   = true,
+    size = "800 450",
+})
+
+-- App → workspace (silent = open there without stealing focus)
+-- Comment out any you don't want pinned to a workspace
+hl.window_rule({
+    name  = "ws-zen",
+    match = { class = "^(zen|zen-browser)$" },
+    workspace = "1 silent",
+})
+
+hl.window_rule({
+    name  = "ws-obsidian",
+    match = { class = "^(obsidian|md.obsidian.Obsidian)$" },
+    workspace = "3 silent",
+})
+
+hl.window_rule({
+    name  = "ws-telegram",
+    match = { class = "^(org.telegram.desktop|TelegramDesktop)$" },
+    workspace = "5 silent",
+})
+
 
 -------- layers rules ----------
+hl.layer_rule({
+    name  = "no-anim-selection",
+    match = { namespace = "selection" },
+    no_anim = true,
+})
+
 hl.layer_rule({
     match = { namespace = "logout_dialog" },
     blur = true,
@@ -40,7 +108,7 @@ hl.layer_rule({
     match = { namespace = "swaync-control-center" },
     blur = true,
     ignore_alpha = 0.5,
-    
+
 })
 
 
@@ -66,7 +134,7 @@ hl.layer_rule({
     match = { namespace = "swaync-notification-window" },
     blur = true,
     ignore_alpha = 0.5,
-  
+
 })
 
 
@@ -153,8 +221,3 @@ hl.window_rule({
     move  = "20 monitor_h-120",
     float = true,
 })
-
-
-
-
-

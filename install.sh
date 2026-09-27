@@ -27,9 +27,10 @@ PACMAN_PKGS=(
     networkmanager bluez bluez-utils blueman ufw
 
     # Hyprland & Environment
-    hyprland hypridle hyprlock hyprpaper hyprpicker hyprpolkitagent
+    hyprland hypridle hyprlock hyprpaper hyprpicker hyprpolkitagent hyprsunset
     waybar rofi swaync fuzzel dunst
     grim slurp satty wl-clipboard cliphist
+    intel-media-driver
 
     # Terminals & Shell Tools
     kitty alacritty fastfetch btop eza fzf zoxide yazi stow

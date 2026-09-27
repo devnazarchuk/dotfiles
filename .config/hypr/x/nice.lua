@@ -17,12 +17,16 @@ hl.config({
     inactive_border = "rgba(00000000)", -- Makes the inactive border completely transparent/hidden
 },
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
-        resize_on_border = false,
+        resize_on_border = true,
 
         -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
         allow_tearing = false,
 
         layout = "dwindle",
+    },
+
+    binds = {
+        drag_threshold = 10,
     },
 
     decoration = {

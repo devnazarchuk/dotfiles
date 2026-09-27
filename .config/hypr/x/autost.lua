@@ -6,11 +6,17 @@
 
 -- Autostart necessary processes (like notifications daemons, status bars, etc.)
 hl.on("hyprland.start", function ()
+    -- Session env for portals / user services
+    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")
+    hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
+
     hl.exec_cmd("waybar")
     hl.exec_cmd("swaync")
     hl.exec_cmd("awww-daemon")
     hl.exec_cmd("hypridle")
     hl.exec_cmd("wayland-pipewire-idle-inhibit -q")
+    hl.exec_cmd("hyprsunset -t 5000")
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
     hl.exec_cmd("wl-paste --type image --watch cliphist store")
     hl.exec_cmd("bluetoothctl power on")

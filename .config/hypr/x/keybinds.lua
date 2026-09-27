@@ -39,6 +39,7 @@ hl.bind(mainMod .. " + Q",                    hl.dsp.window.close(), { repeating
 hl.bind(mainMod .. " + F",                    hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + P",                    hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + R",                    hl.dsp.window.float({ action = "toggle" }))
+hl.bind("ALT + Tab",                          hl.dsp.window.cycle_next({ next = true }))
 --hl.bind(mainMod .. " + X",                    function()
 --    local current = hl.get_config("general.layout")
 --    local target = (current == "dwindle") and "scrolling" or "dwindle"
@@ -133,8 +134,12 @@ hl.bind(mainMod .. " + SHIFT + Right", function() hl.dispatch(hl.dsp.window.move
 hl.bind(mainMod .. " + SHIFT + Up",    function() hl.dispatch(hl.dsp.window.move({ x = 0,   y = -50, relative = true })) end, { repeating = true })
 hl.bind(mainMod .. " + SHIFT + Down",  function() hl.dispatch(hl.dsp.window.move({ x = 0,   y = 50,  relative = true })) end, { repeating = true })
 
+-- Super + LMB  = move window
+-- Super + RMB  = resize window
+-- Super + Shift + LMB = resize (якщо RMB незручний)
 hl.bind(mainMod .. " + mouse:272",            hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273",            hl.dsp.window.resize(), { mouse = true })
+hl.bind(mainMod .. " + SHIFT + mouse:272",    hl.dsp.window.resize(), { mouse = true })
 
 
 ---------------------
