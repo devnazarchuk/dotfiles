@@ -24,7 +24,7 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("~/.config/hypr/scripts/power-auto.sh")
     -- Theme & Cursor Sync
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
-    hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'")
+    hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme 'Graphite-Dark'")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-theme 'catppuccin-mocha-dark-cursors'")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-size 21")
     hl.exec_cmd("hyprctl setcursor catppuccin-mocha-dark-cursors 21")
