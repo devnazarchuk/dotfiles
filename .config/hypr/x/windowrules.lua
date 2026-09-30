@@ -79,14 +79,14 @@ hl.window_rule({
 hl.window_rule({
     name  = "ws-obsidian",
     match = { class = "^(obsidian|md.obsidian.Obsidian)$" },
-    workspace = "3 silent",
+    workspace = "2 silent",
 })
 
-hl.window_rule({
-    name  = "ws-telegram",
-    match = { class = "^(org.telegram.desktop|TelegramDesktop)$" },
-    workspace = "5 silent",
-})
+-- hl.window_rule({
+--     name  = "ws-telegram",
+--     match = { class = "^(org.telegram.desktop|TelegramDesktop)$" },
+--     workspace = "5 silent",
+-- })
 
 
 -------- layers rules ----------
@@ -100,24 +100,18 @@ hl.layer_rule({
     match = { namespace = "logout_dialog" },
     blur = true,
     ignore_alpha = 0.0,
-
 })
-
 
 hl.layer_rule({
     match = { namespace = "swaync-control-center" },
     blur = true,
     ignore_alpha = 0.5,
-
 })
-
-
 
 hl.layer_rule({
     match = { namespace = "waybar" },
     blur = true,
     ignore_alpha = 0.5,
-
 })
 
 
