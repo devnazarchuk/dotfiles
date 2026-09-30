@@ -3,23 +3,17 @@ text/x-shellscript=dev.zed.Zed.desktop;
 text/css=dev.zed.Zed.desktop;
 application/octet-stream=dev.zed.Zed.desktop;
 application/schema+json=dev.zed.Zed.desktop;
+text/html=dev.zed.Zed.desktop;
 
 [Default Applications]
-# Веб та посилання
 x-scheme-handler/http=zen-browser.desktop
 x-scheme-handler/https=zen-browser.desktop
 text/html=zen-browser.desktop
 x-scheme-handler/about=zen-browser.desktop
 x-scheme-handler/unknown=zen-browser.desktop
-
-# Файловий менеджер (папки)
 inode/directory=thunar.desktop
-
-# Документи та PDF
 application/pdf=org.pwmt.zathura.desktop
 application/epub+zip=org.pwmt.zathura.desktop
-
-# Відео та аудіо (MPV)
 video/mp4=mpv.desktop
 video/x-matroska=mpv.desktop
 video/webm=mpv.desktop
@@ -29,15 +23,11 @@ audio/mpeg=mpv.desktop
 audio/x-wav=mpv.desktop
 audio/flac=mpv.desktop
 audio/ogg=mpv.desktop
-
-# Зображення (MPV чудово працює як зображення-переглядач, або відкриватиме Zen)
 image/png=mpv.desktop
 image/jpeg=mpv.desktop
 image/webp=mpv.desktop
 image/gif=mpv.desktop
 image/svg+xml=zen-browser.desktop
-
-# Текст та код (Zed як GUI редактор, Neovim/Nano як альтернатива)
 text/plain=dev.zed.Zed.desktop
 text/markdown=dev.zed.Zed.desktop
 text/x-python=dev.zed.Zed.desktop

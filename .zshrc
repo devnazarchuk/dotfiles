@@ -38,3 +38,4 @@ setopt SHARE_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
+export PATH=~/.npm-global/bin:$PATH
