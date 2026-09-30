@@ -1,7 +1,7 @@
 #!/bin/bash
 
 iDIR="$HOME/.config/swaync/icons"
-step=1  # INCREASE/DECREASE BY THIS VALUE
+step=5  # INCREASE/DECREASE BY THIS VALUE
 
 # Get brightness percentage
 get_backlight() {
