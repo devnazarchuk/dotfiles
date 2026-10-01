@@ -30,6 +30,10 @@ hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("obsidian"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("Telegram"))
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("kitty -e btop"))
 hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd("zeditor"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("xdg-open https://ticktick.com"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/toggle-nightlight.sh"))
+hl.bind(mainMod .. " + G", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/toggle-grayscale.sh"))
+
 
 ---------------------
 --- WINDOW MANAGEMENT

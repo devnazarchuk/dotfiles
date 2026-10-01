@@ -4,6 +4,7 @@ text/css=dev.zed.Zed.desktop;
 application/octet-stream=dev.zed.Zed.desktop;
 application/schema+json=dev.zed.Zed.desktop;
 text/html=dev.zed.Zed.desktop;
+application/pdf=zen.desktop;
 
 [Default Applications]
 x-scheme-handler/http=zen-browser.desktop
@@ -12,7 +13,7 @@ text/html=zen-browser.desktop
 x-scheme-handler/about=zen-browser.desktop
 x-scheme-handler/unknown=zen-browser.desktop
 inode/directory=thunar.desktop
-application/pdf=org.pwmt.zathura.desktop
+application/pdf=zen.desktop
 application/epub+zip=org.pwmt.zathura.desktop
 video/mp4=mpv.desktop
 video/x-matroska=mpv.desktop
