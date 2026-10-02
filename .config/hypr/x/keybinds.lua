@@ -1,9 +1,9 @@
--- _  __          _     _           _     
---| |/ /___ _   _| |__ (_)_ __   __| |___ 
+-- _  __          _     _           _
+--| |/ /___ _   _| |__ (_)_ __   __| |___
 --| ' // _ \ | | | '_ \| | '_ \ / _` / __|
 --| . \  __/ |_| | |_) | | | | | (_| \__ \
 --|_|\_\___|\__, |_.__/|_|_| |_|\__,_|___/
---          |___/                         
+--          |___/
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -181,24 +181,19 @@ hl.bind("CTRL + SHIFT + S",                   hl.dsp.exec_cmd([[grim -g "$(hyprc
 hl.bind("CTRL + SHIFT + F",                   hl.dsp.exec_cmd([[grim - | satty --filename - --output-filename ~/Pictures/Screenshots/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png --early-exit --actions-on-enter save-to-clipboard --copy-command 'wl-copy']]))
 
 -- Extras & Pickers
-hl.bind("SUPER + period", hl.dsp.exec_cmd([[sh -c 'if pgrep -x rofi >/dev/null; then pkill -x rofi; else ~/.config/hypr/scripts/emoji.sh -matching fuzzy; fi']]))
-hl.bind(mainMod .. " + W", hl.dsp.exec_cmd('sh -c \'if pgrep -x rofi >/dev/null; then pkill -x rofi; else rofi -show wallpaper -matching fuzzy -modi "wallpaper:' .. os.getenv("HOME") .. '/.config/hypr/scripts/paper.sh" -theme-str "mainbox { children: [ \\"inputbar\\", \\"listview\\" ]; } listview { columns: 2; lines: 3; spacing: 12px; } element-text { enabled: false; } element-icon { size: 144px; horizontal-align: 0.5; } element { orientation: vertical; padding: 7px; }"; fi\''))
+hl.bind("SUPER + period",                     hl.dsp.exec_cmd([[sh -c 'if pgrep -x rofi >/dev/null; then pkill -x rofi; else ~/.config/hypr/scripts/emoji.sh -matching fuzzy; fi']]))
+hl.bind(mainMod .. " + W",                    hl.dsp.exec_cmd('sh -c \'if pgrep -x rofi >/dev/null; then pkill -x rofi; else rofi -show wallpaper -matching fuzzy -modi "wallpaper:' .. os.getenv("HOME") .. '/.config/hypr/scripts/paper.sh" -theme-str "mainbox { children: [ \\"inputbar\\", \\"listview\\" ]; } listview { columns: 2; lines: 3; spacing: 12px; } element-text { enabled: false; } element-icon { size: 144px; horizontal-align: 0.5; } element { orientation: vertical; padding: 7px; }"; fi\''))
 
 -- Clipboard Manager
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd([[sh -c 'if pgrep -x rofi >/dev/null || pgrep -x fuzzel >/dev/null || pgrep -x wofi >/dev/null; then pkill -x rofi || pkill -x fuzzel || pkill -x wofi; else ]] .. os.getenv("HOME") .. [[/.config/hypr/scripts/clip.sh paste; fi']]))
+hl.bind(mainMod .. " + V",                    hl.dsp.exec_cmd([[sh -c 'if pgrep -x rofi >/dev/null || pgrep -x fuzzel >/dev/null || pgrep -x wofi >/dev/null; then pkill -x rofi || pkill -x fuzzel || pkill -x wofi; else ]] .. os.getenv("HOME") .. [[/.config/hypr/scripts/clip.sh paste; fi']]))
 hl.bind(mainMod .. " + SHIFT + V",            hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/clip.sh wipe"))
 hl.bind("ALT + Delete",                       hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/clip.sh delete"))
 
 -- Text Recognition (OCR)
-hl.bind(mainMod .. " + SHIFT + X",                   hl.dsp.exec_cmd([[
-    region=$(slurp) && grim -g "$region" - | tesseract stdin stdout | wl-copy && notify-send "⎘ OCR" "Text copied to clipboard"
-]]))
-
+hl.bind(mainMod .. " + SHIFT + X",            hl.dsp.exec_cmd([[region=$(slurp) && grim -g "$region" - | tesseract stdin stdout -l ukr+eng | wl-copy && notify-send "⎘ OCR" "Text copied to clipboard"]]))
 
 --Hyprpicker(color picker)
 
-hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("hyprpicker -a"))
---hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar || waybar"))
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("killall waybar; waybar &"))
-
-
+hl.bind(mainMod .. " + SHIFT + P",            hl.dsp.exec_cmd("hyprpicker -a"))
+--hl.bind(mainMod .. " + SHIFT + W",          hl.dsp.exec_cmd("pkill -SIGUSR1 waybar || waybar"))
+hl.bind(mainMod .. " + SHIFT + W",            hl.dsp.exec_cmd("killall waybar; waybar &"))

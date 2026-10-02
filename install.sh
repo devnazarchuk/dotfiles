@@ -29,7 +29,7 @@ PACMAN_PKGS=(
     # Hyprland & Environment
     hyprland hypridle hyprlock hyprpaper hyprpicker hyprpolkitagent hyprsunset
     waybar rofi swaync fuzzel dunst
-    grim slurp satty wl-clipboard cliphist
+    grim slurp satty wl-clipboard cliphist tesseract tesseract-data-ukr tesseract-data-eng
     intel-media-driver
 
     # Terminals & Shell Tools
