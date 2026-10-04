@@ -85,6 +85,9 @@ else
 fi
 
 # Static JSON payload for Waybar with expanded tooltip
+RAM_USED_PERC=$(free | awk 'NR==2{printf "%d", $3*100/$2}')
+RAM_USED_GB=$(free -m | awk 'NR==2{printf "%.1fGB", $3/1024}')
+
 cat <<EOF
-{"text": "󰔏 ${SYS_TEMP}°C", "tooltip": " CPU Usage: ${CPU_USAGE}%\n CPU Temp: ${CPU_TEMP}°C\n󰢮 GPU Usage: ${GPU_USAGE}%\n󰢮 GPU Temp: ${GPU_TEMP}°C\n󰍛 RAM: ${RAM_INFO}\n󰋊 Disk: ${DISK_INFO}\n󰈐 Fan Speed: ${FAN_SPEED} RPM\n󰛳 Network: ${NET_STAT}\n󰃠 Brightness: ${BRIGHTNESS}%\n󰕾 Audio: ${AUDIO_VOL}\n󰍬 Mic: ${MIC_VOL}\n󰔏 System Temp: ${SYS_TEMP}°C"}
+{"text": " ${CPU_USAGE}%  󰍛 ${RAM_USED_GB}", "tooltip": " CPU Usage: ${CPU_USAGE}%\n CPU Temp: ${CPU_TEMP}°C\n󰢮 GPU Usage: ${GPU_USAGE}%\n󰢮 GPU Temp: ${GPU_TEMP}°C\n󰍛 RAM: ${RAM_INFO}\n󰋊 Disk: ${DISK_INFO}\n󰈐 Fan Speed: ${FAN_SPEED} RPM\n󰛳 Network: ${NET_STAT}\n󰃠 Brightness: ${BRIGHTNESS}%\n󰕾 Audio: ${AUDIO_VOL}\n󰍬 Mic: ${MIC_VOL}\n󰔏 System Temp: ${SYS_TEMP}°C"}
 EOF
