@@ -174,11 +174,12 @@ hl.bind("XF86AudioPrev",                      hl.dsp.exec_cmd("playerctl previou
 ---- UTILITIES ------
 ---------------------
 
--- Screenshots: Super+Shift+S = quick region save; Print = satty editor
-hl.bind(mainMod .. " + SHIFT + S",            hl.dsp.exec_cmd([[sh -c 'f="$HOME/Pictures/Screenshots/Screenshot_$(date +%Y-%m-%d_%H-%M-%S).png"; grim -g "$(slurp)" "$f" && wl-copy < "$f" && notify-send -u low "Screenshot" "Saved & copied"']]))
-hl.bind("Print",                              hl.dsp.exec_cmd([[grim -g "$(slurp)" - | satty --filename - --output-filename ~/Pictures/Screenshots/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png --early-exit --actions-on-enter save-to-clipboard --copy-command 'wl-copy']]))
-hl.bind("CTRL + SHIFT + S",                   hl.dsp.exec_cmd([[grim -g "$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" - | satty --filename - --output-filename ~/Pictures/Screenshots/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png --early-exit --actions-on-enter save-to-clipboard --copy-command 'wl-copy']]))
-hl.bind("CTRL + SHIFT + F",                   hl.dsp.exec_cmd([[grim - | satty --filename - --output-filename ~/Pictures/Screenshots/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png --early-exit --actions-on-enter save-to-clipboard --copy-command 'wl-copy']]))
+-- Screenshots: frozen frame, auto-save & copy to clipboard (with/without editor)
+hl.bind(mainMod .. " + SHIFT + S",            hl.dsp.exec_cmd([[grimblast --freeze copysave area ~/Pictures/Screenshots/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png]]))   -- | Select region (auto-save & copy)
+hl.bind("Print",                              hl.dsp.exec_cmd([[grimblast --freeze save area - | satty --filename - --output-filename ~/Pictures/Screenshots/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png --early-exit --actions-on-enter save-to-clipboard --copy-command 'wl-copy']])) -- | Select region (edit in Satty)
+hl.bind("CTRL + SHIFT + S",                   hl.dsp.exec_cmd([[grimblast --freeze copysave active ~/Pictures/Screenshots/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png]])) -- | Active window only
+hl.bind("CTRL + SHIFT + F",                   hl.dsp.exec_cmd([[grimblast --freeze copysave screen ~/Pictures/Screenshots/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png]])) -- | Entire screen / All monitors-- Extras & Pickers
+
 
 -- Extras & Pickers
 hl.bind("SUPER + period",                     hl.dsp.exec_cmd([[sh -c 'if pgrep -x rofi >/dev/null; then pkill -x rofi; else ~/.config/hypr/scripts/emoji.sh -matching fuzzy; fi']]))
