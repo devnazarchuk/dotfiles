@@ -11,7 +11,7 @@
 local mainMod     = "SUPER" -- Sets "Windows" key as main modifier
 local fileManager = "thunar"
 local terminal    = "kitty"
-local browser     = "zen-browser"
+local browser     = "helium-browser"
 local menu        = "pkill rofi || rofi -show drun -matching fuzzy"
 
 
@@ -175,11 +175,10 @@ hl.bind("XF86AudioPrev",                      hl.dsp.exec_cmd("playerctl previou
 ---------------------
 
 -- Screenshots: frozen frame, auto-save & copy to clipboard (with/without editor)
-hl.bind(mainMod .. " + SHIFT + S",            hl.dsp.exec_cmd([[grimblast --freeze copysave area ~/Pictures/Screenshots/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png]]))   -- | Select region (auto-save & copy)
-hl.bind("Print",                              hl.dsp.exec_cmd([[grimblast --freeze save area - | satty --filename - --output-filename ~/Pictures/Screenshots/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png --early-exit --actions-on-enter save-to-clipboard --copy-command 'wl-copy']])) -- | Select region (edit in Satty)
-hl.bind("CTRL + SHIFT + S",                   hl.dsp.exec_cmd([[grimblast --freeze copysave active ~/Pictures/Screenshots/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png]])) -- | Active window only
-hl.bind("CTRL + SHIFT + F",                   hl.dsp.exec_cmd([[grimblast --freeze copysave screen ~/Pictures/Screenshots/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png]])) -- | Entire screen / All monitors-- Extras & Pickers
-
+hl.bind(mainMod .. " + SHIFT + S",            hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/screenshot.sh area"))   -- | Select region (auto-save & copy)
+hl.bind("Print",                              hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/screenshot.sh satty"))  -- | Select region (edit in Satty)
+hl.bind("CTRL + SHIFT + S",                   hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/screenshot.sh active")) -- | Active window only
+hl.bind("CTRL + SHIFT + F",                   hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/screenshot.sh screen")) -- | Entire screen / All monitors
 
 -- Extras & Pickers
 hl.bind("SUPER + period",                     hl.dsp.exec_cmd([[sh -c 'if pgrep -x rofi >/dev/null; then pkill -x rofi; else ~/.config/hypr/scripts/emoji.sh -matching fuzzy; fi']]))
@@ -191,7 +190,7 @@ hl.bind(mainMod .. " + SHIFT + V",            hl.dsp.exec_cmd(os.getenv("HOME") 
 hl.bind("ALT + Delete",                       hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/clip.sh delete"))
 
 -- Text Recognition (OCR)
-hl.bind(mainMod .. " + SHIFT + X",            hl.dsp.exec_cmd([[region=$(slurp) && grim -g "$region" - | tesseract stdin stdout -l ukr+eng | wl-copy && notify-send "⎘ OCR" "Text copied to clipboard"]]))
+hl.bind(mainMod .. " + SHIFT + X",            hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/screenshot.sh ocr"))
 
 --Hyprpicker(color picker)
 

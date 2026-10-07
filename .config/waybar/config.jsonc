@@ -72,7 +72,9 @@
             "spotify": " ",
             "vlc": "󰕼 ",
             "brave": " ",
-            "zen": " "
+            "zen": " ",
+            "helium": " ",
+            "helium-browser": " "
         },
         "status-icons": {
             "paused": ""

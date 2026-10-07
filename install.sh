@@ -47,8 +47,8 @@ PACMAN_PKGS=(
 )
 
 AUR_PKGS=(
-    zen-browser cursor obsidian telegram-desktop anki catppuccin-cursors-mocha catppuccin-gtk-theme-mocha wlogout
-    wayland-pipewire-idle-inhibit grimblast-git
+    helium-browser-bin cursor obsidian telegram-desktop anki catppuccin-cursors-mocha catppuccin-gtk-theme-mocha wlogout
+    wayland-pipewire-idle-inhibit
 )
 # --- MODULES ---
 

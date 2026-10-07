@@ -71,8 +71,8 @@ hl.window_rule({
 -- App → workspace (silent = open there without stealing focus)
 -- Comment out any you don't want pinned to a workspace
 hl.window_rule({
-    name  = "ws-zen",
-    match = { class = "^(zen|zen-browser)$" },
+    name  = "ws-browser",
+    match = { class = "^(helium|helium-browser|zen|zen-browser)$" },
     workspace = "1 silent",
 })
 
