@@ -11,7 +11,7 @@
 local mainMod     = "SUPER" -- Sets "Windows" key as main modifier
 local fileManager = "thunar"
 local terminal    = "kitty"
-local browser     = "helium-browser"
+local browser     = "librewolf"
 local menu        = "pkill rofi || rofi -show drun -matching fuzzy"
 
 

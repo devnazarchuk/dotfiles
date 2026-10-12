@@ -72,7 +72,7 @@ hl.window_rule({
 -- Comment out any you don't want pinned to a workspace
 -- hl.window_rule({
 --     name  = "ws-browser",
---     match = { class = "^(helium|helium-browser|zen|zen-browser)$" },
+--     match = { class = "^(librewolf|LibreWolf)$" },
 --     workspace = "1 silent",
 -- })
 

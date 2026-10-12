@@ -82,9 +82,7 @@
 .config/matugen/cache/
 .config/spicetify/Backup/
 .config/spicetify/Extracted/
-.config/zen/
-.config/helium/
-.config/Helium/
+.config/librewolf/
 .config/vesktop/
 .config/mozilla/
 .config/obsidian/
