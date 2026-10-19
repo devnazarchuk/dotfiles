@@ -3,9 +3,9 @@
    ========================================================================== */
 @import url("colors.css");
 
-/* Base Static Definitions */
-@define-color bg-dark          rgba(26, 27, 38, 0.45);
-@define-color tooltip-bg       mix(@matugen-accent, @bg-dark, 0.18);
+/* Base Dynamic Theme Definitions */
+@define-color bg-bar          alpha(@matugen-surface, 0.55);
+@define-color tooltip-bg       mix(@matugen-accent, @matugen-surface, 0.18);
 @define-color border-color     @matugen-accent;
 @define-color text-main        @matugen-accent;
 @define-color text-muted       @matugen-accent;
@@ -26,7 +26,7 @@
 
 /* Base Bar Container */
 window#waybar {
-    background: @bg-dark;
+    background: @bg-bar;
     border: 0px solid @matugen-accent;
     color: @matugen-accent;
     border-radius: 12px;
@@ -70,6 +70,7 @@ tooltip label {
 #backlight,
 #pulseaudio,
 #custom-whisper,
+#custom-theme,
 #network,
 #bluetooth,
 #battery,
@@ -176,6 +177,11 @@ tooltip label {
 #custom-whisper.recording {
     color: #ff5555;
     font-weight: bold;
+}
+
+#custom-theme {
+    padding: 0px 6px;
+    margin: 0px 4px;
 }
 
 #custom-power {

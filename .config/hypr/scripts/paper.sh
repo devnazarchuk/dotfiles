@@ -4,26 +4,7 @@ WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
 
 apply_colors() {
     local image_path="$1"
-    local target_img="$image_path"
-    local tmp_img="/tmp/matugen_preview.png"
-
-    # Resize image using ImageMagick v7 (magick) or v6 (convert) for faster color extraction
-    if command -v magick >/dev/null 2>&1; then
-        if magick "$image_path" -resize 500x500\> "$tmp_img" >/dev/null 2>&1; then
-            target_img="$tmp_img"
-        fi
-    elif command -v convert >/dev/null 2>&1; then
-        if convert "$image_path" -resize 500x500\> "$tmp_img" >/dev/null 2>&1; then
-            target_img="$tmp_img"
-        fi
-    fi
-
-    # Generate color scheme via Matugen
-    if matugen image "$target_img" --source-color-index 0 >/dev/null 2>&1; then
-        # Brief pause to allow the generated CSS file cache to flush to disk
-        sleep 0.1
-        pkill -SIGUSR2 waybar 2>/dev/null || pkill -SIGUSR1 waybar 2>/dev/null
-    fi
+    "$HOME/.config/hypr/scripts/theme.sh" apply "$image_path" "smart"
 }
 
 # Populate Rofi menu

@@ -28,6 +28,7 @@ hl.bind(mainMod .. " + CTRL + L",             hl.dsp.exec_cmd("hyprlock -c ~/.co
 hl.bind(mainMod .. " + SHIFT + Q",            hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/kill.sh"))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("obsidian"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("Telegram"))
+hl.bind(mainMod .. " + CTRL + T", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/theme.sh toggle"))
 -- hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("kitty -e btop"))
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/voice-type.sh"))
 hl.bind(mainMod .. " + CTRL + X", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/voice-type.sh toggle-lang"))

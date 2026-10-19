@@ -22,6 +22,7 @@
         "pulseaudio",
         "pulseaudio#microphone",
         "custom/whisper",
+        "custom/theme",
         "bluetooth",
         "network",
         "battery",
@@ -179,6 +180,16 @@
         "interval": 2,
         "on-click": "$HOME/.config/hypr/scripts/voice-type.sh",
         "on-click-right": "$HOME/.config/hypr/scripts/voice-type.sh toggle-lang",
+        "tooltip": true
+    },
+    "custom/theme": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "$HOME/.config/hypr/scripts/theme.sh status",
+        "signal": 9,
+        "interval": 2,
+        "on-click": "$HOME/.config/hypr/scripts/theme.sh toggle",
+        "on-click-right": "$HOME/.config/hypr/scripts/theme.sh set smart",
         "tooltip": true
     },
     "network": {
