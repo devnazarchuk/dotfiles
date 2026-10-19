@@ -21,6 +21,7 @@
         "backlight",
         "pulseaudio",
         "pulseaudio#microphone",
+        "custom/whisper",
         "bluetooth",
         "network",
         "battery",
@@ -131,11 +132,12 @@
         "device": "intel_backlight",
         "format": "{icon} {percent}%",
         "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "on-scroll-up": "brightnessctl set +1%",
-        "on-scroll-down": "brightnessctl set 1%-",
-        "on-click": "kitty brightness-tui",
+        "on-scroll-up": "$HOME/.config/hypr/scripts/brightness.sh --inc",
+        "on-scroll-down": "$HOME/.config/hypr/scripts/brightness.sh --dec",
+        "on-click": "$HOME/.config/hypr/scripts/brightness-menu.sh",
+        "on-click-right": "swaync-client -t -sw",
         "tooltip": true,
-        "tooltip-format": "󰃞 Backlight Level: {percent}%\n󰌆 Controller: intel_backlight"
+        "tooltip-format": "󰃞 Brightness: {percent}%\nLMB: Presets menu\nRMB: SwayNC slider\nScroll: Adjust by 5%"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
@@ -168,6 +170,16 @@
         "max-volume": 100,
         "tooltip": true,
         "tooltip-format": "󰍬 Microphone Level: {source_volume}%\n󰓃 Source Device: {source_desc}"
+    },
+    "custom/whisper": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "$HOME/.config/hypr/scripts/voice-type.sh status",
+        "signal": 8,
+        "interval": 2,
+        "on-click": "$HOME/.config/hypr/scripts/voice-type.sh",
+        "on-click-right": "$HOME/.config/hypr/scripts/voice-type.sh toggle-lang",
+        "tooltip": true
     },
     "network": {
         "format-wifi": "  {essid}",

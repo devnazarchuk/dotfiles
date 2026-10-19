@@ -44,6 +44,10 @@ case "$1" in
         brightnessctl set "${step}%-"
         notify_user
         ;;
+    "--set")
+        brightnessctl set "$2%"
+        notify_user
+        ;;
     *)
         get_backlight
         ;;

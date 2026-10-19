@@ -69,6 +69,7 @@ tooltip label {
 #custom-vitals,
 #backlight,
 #pulseaudio,
+#custom-whisper,
 #network,
 #bluetooth,
 #battery,
@@ -165,6 +166,16 @@ tooltip label {
 #pulseaudio.muted,
 #bluetooth.disabled {
     color: @matugen-accent;
+}
+
+#custom-whisper {
+    padding: 0px 6px;
+    margin: 0px 4px;
+}
+
+#custom-whisper.recording {
+    color: #ff5555;
+    font-weight: bold;
 }
 
 #custom-power {
