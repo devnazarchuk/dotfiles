@@ -162,8 +162,8 @@
     },
     "pulseaudio#microphone": {
         "format": "{format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": " ",
+        "format-source": "",
+        "format-source-muted": "",
         "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
         "on-click": "kitty wiremix -v input",
         "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
