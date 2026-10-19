@@ -67,12 +67,46 @@ apply_theme() {
     # Save state
     echo "$effective_mode" > "$THEME_MODE_FILE"
 
-    # Sync GTK color-scheme
+    # Sync GTK3, GTK4, Icons, and Desktop Settings
     if [ "$effective_mode" = "light" ]; then
-        gsettings set org.gnome.desktop.interface color-scheme 'prefer-light' 2>/dev/null
+        local gtk_theme="adw-gtk3"
+        local icon_theme="Papirus-Light"
+        local prefer_dark="0"
+        local color_scheme="prefer-light"
     else
-        gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null
+        local gtk_theme="adw-gtk3-dark"
+        local icon_theme="Papirus-Dark"
+        local prefer_dark="1"
+        local color_scheme="prefer-dark"
     fi
+
+    # 1. Freedesktop / GNOME interface settings
+    gsettings set org.gnome.desktop.interface color-scheme "$color_scheme" 2>/dev/null
+    gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme" 2>/dev/null
+    gsettings set org.gnome.desktop.interface icon-theme "$icon_theme" 2>/dev/null
+
+    # 2. Update GTK 3 & GTK 4 settings.ini
+    for ini in "$HOME/.config/gtk-3.0/settings.ini" "$HOME/.config/gtk-4.0/settings.ini"; do
+        if [ -f "$ini" ]; then
+            sed -i \
+                -e "s/^gtk-theme-name=.*/gtk-theme-name=$gtk_theme/" \
+                -e "s/^gtk-icon-theme-name=.*/gtk-icon-theme-name=$icon_theme/" \
+                -e "s/^gtk-application-prefer-dark-theme=.*/gtk-application-prefer-dark-theme=$prefer_dark/" \
+                "$ini"
+        fi
+    done
+
+    # 3. Ensure GTK 4 dark stylesheet links to dynamic matugen styles
+    if [ -L "$HOME/.config/gtk-4.0/gtk-dark.css" ] || [ ! -f "$HOME/.config/gtk-4.0/gtk-dark.css" ]; then
+        ln -sf "gtk.css" "$HOME/.config/gtk-4.0/gtk-dark.css" 2>/dev/null
+    fi
+
+    # 4. Update Qt icon themes
+    for qt_conf in "$HOME/.config/qt5ct/qt5ct.conf" "$HOME/.config/qt6ct/qt6ct.conf"; do
+        if [ -f "$qt_conf" ]; then
+            sed -i "s/^icon_theme=.*/icon_theme=$icon_theme/" "$qt_conf" 2>/dev/null
+        fi
+    done
 
     # Reload GTK CSS and Waybar
     ~/.config/hypr/scripts/reload-gtk.sh >/dev/null 2>&1 &

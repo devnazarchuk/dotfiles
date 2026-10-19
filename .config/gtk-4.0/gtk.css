@@ -1,1 +1,52 @@
-/home/arch/.themes/Graphite-Dark/gtk-4.0/gtk.css
+/*
+* GTK Colors
+* Generated with Matugen
+*/
+
+@define-color accent_color #98ccf9;
+@define-color accent_fg_color #001e31;
+@define-color accent_bg_color #98ccf9;
+@define-color window_bg_color #d7dadf;
+@define-color window_fg_color #181c20;
+@define-color headerbar_bg_color #d7dadf;
+@define-color headerbar_fg_color #181c20;
+@define-color popover_bg_color #d7dadf;
+@define-color popover_fg_color #181c20;
+@define-color view_bg_color #f7f9ff;
+@define-color view_fg_color #181c20;
+@define-color card_bg_color #f7f9ff;
+@define-color card_fg_color #181c20;
+@define-color sidebar_bg_color @window_bg_color;
+@define-color sidebar_fg_color @window_fg_color;
+@define-color sidebar_border_color @window_bg_color;
+@define-color sidebar_backdrop_color @window_bg_color;
+
+
+
+/* Global fallback for GTK3 windows (Thunar, etc.) */
+window,
+dialog {
+    background-color: @window_bg_color;
+    color: @window_fg_color;
+}
+/* Selection and Highlight Colors */
+selection,
+.selection {
+  background-color: #cbe6ff;
+  color: #001e31;
+}
+
+/* Row and List Hover States */
+row:hover,
+modelbutton:hover,
+button:hover {
+  background-color: #e6e8ee;
+}
+
+/* Folder/View Specific Backgrounds */
+iconview,
+textview,
+list {
+  background-color: #f7f9ff;
+  color: #181c20;
+}
