@@ -38,6 +38,7 @@ PACMAN_PKGS=(
 
     # Audio, Video & Theme
     pipewire pipewire-pulse wireplumber pavucontrol easyeffects cava
+    sof-firmware alsa-utils
     librewolf mpv zathura thunar
     qt5-wayland qt6-wayland matugen nwg-look
 
@@ -146,6 +147,24 @@ step_extras() {
         sudo -u "$TARGET_USER" spicetify backup apply 2>/dev/null || sudo -u "$TARGET_USER" spicetify apply 2>/dev/null || true
     fi
 
+    # Hardware & Audio fixes (Lenovo ThinkBook 13s-IML / SOF DMIC)
+    local dotfiles_dir
+    dotfiles_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    if [ -d "$dotfiles_dir/system/modprobe" ]; then
+        log_info "Deploying hardware modprobe fixes to /etc/modprobe.d/..."
+        sudo cp -a "$dotfiles_dir/system/modprobe/"*.conf /etc/modprobe.d/
+        log_info "Regenerating initramfs with mkinitcpio..."
+        sudo mkinitcpio -P
+    fi
+
+    if command -v amixer &> /dev/null; then
+        log_info "Configuring default audio capture levels..."
+        amixer -c 0 sset Capture cap 2>/dev/null || true
+        amixer -c 0 sset 'Capture' 60% cap 2>/dev/null || true
+        amixer -c 0 sset 'Mic Boost' 1 2>/dev/null || true
+        command -v alsactl &> /dev/null && sudo alsactl store 2>/dev/null || true
+    fi
+
     log_success "Extras configured."
 }
 
@@ -156,7 +175,7 @@ show_help() {
     echo "  -y, --yay        System update & yay install only"
     echo "  -p, --packages   Install packages only"
     echo "  -c, --configs    Deploy configs only"
-    echo "  -e, --extras     Extras only (Shell, Spicetify)"
+    echo "  -e, --extras     Extras only (Shell, Spicetify, Hardware fixes)"
     echo "  -h, --help       Show help"
 }
 
