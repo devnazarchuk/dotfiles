@@ -39,7 +39,7 @@ PACMAN_PKGS=(
     # Audio, Video & Theme
     pipewire pipewire-pulse wireplumber pavucontrol easyeffects cava
     sof-firmware alsa-utils
-    librewolf mpv zathura thunar
+    mpv zathura thunar
     qt5-wayland qt6-wayland matugen nwg-look
 
     # Fonts & Development
@@ -48,7 +48,7 @@ PACMAN_PKGS=(
 )
 
 AUR_PKGS=(
-    cursor obsidian telegram-desktop anki catppuccin-cursors-mocha catppuccin-gtk-theme-mocha wlogout
+    zen-browser-bin cursor obsidian telegram-desktop anki catppuccin-cursors-mocha catppuccin-gtk-theme-mocha wlogout
     wayland-pipewire-idle-inhibit
 )
 # --- MODULES ---

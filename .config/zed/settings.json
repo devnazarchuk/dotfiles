@@ -7,6 +7,25 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent_servers": {
+    "gemini": {
+      "type": "registry"
+    },
+    "antigravity-acp": {
+      "default_config_options": {
+        "thinking_level": "low"
+      },
+      "type": "registry"
+    }
+  },
+  "agent": {
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "collaboration_panel": {
+    "button": false
+  },
   "project_panel": {
     "dock": "left"
   },

@@ -11,6 +11,7 @@
 !wallpaper/**
 !screenshots/
 !screenshots/**
+!.local/share/Anki2/addons21/dynamic_theme_sync/**
 
 # 3. Allow .config container directory itself
 !.config/
@@ -82,7 +83,7 @@
 .config/matugen/cache/
 .config/spicetify/Backup/
 .config/spicetify/Extracted/
-.config/librewolf/
+.config/zen/
 .config/vesktop/
 .config/mozilla/
 .config/obsidian/
