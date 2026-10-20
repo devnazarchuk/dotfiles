@@ -108,12 +108,12 @@ apply_theme() {
         fi
     done
 
-    # Reload GTK CSS and Waybar
-    ~/.config/hypr/scripts/reload-gtk.sh >/dev/null 2>&1 &
-    update_waybar
+    # 5. Obsidian: push matugen snippet (hot-reloads CSS; Electron ignores portal live)
+    ~/.config/hypr/scripts/sync-obsidian-theme.sh "$effective_mode" >/dev/null 2>&1 || true
 
-    # Notify
-    notify-send -t 1500 -a "Theme" -i preferences-desktop-theme "Theme Applied" "Mode: ${effective_mode^} (${mode} mode)"
+    # Reload GTK CSS (Thunar via xsettingsd/xfconf + theme bounce) and Waybar
+    ~/.config/hypr/scripts/reload-gtk.sh >/dev/null 2>&1
+    update_waybar
 }
 
 case "$1" in

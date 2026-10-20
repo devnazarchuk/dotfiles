@@ -66,6 +66,7 @@ post_hook = 'pkill -USR2 btop || true'
 [templates.obsidian]
 input_path = '~/.config/matugen/templates/obsidian.css'
 output_path = '~/.config/obsidian/themes/matugen-dynamic.css'
+post_hook = '~/.config/hypr/scripts/sync-obsidian-theme.sh >/dev/null 2>&1 || true'
 
 [templates.vesktop]
 input_path = '~/.config/matugen/templates/midnight-discord.css'

@@ -28,7 +28,7 @@ PACMAN_PKGS=(
 
     # Hyprland & Environment
     hyprland hypridle hyprlock hyprpaper hyprpicker hyprpolkitagent hyprsunset
-    waybar rofi swaync fuzzel dunst
+    waybar rofi swaync fuzzel dunst xsettingsd
     grim slurp satty wl-clipboard cliphist tesseract tesseract-data-ukr tesseract-data-eng
     intel-media-driver
 

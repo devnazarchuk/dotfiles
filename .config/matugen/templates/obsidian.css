@@ -1,6 +1,6 @@
 /* Matugen Obsidian Dynamic Colors Snippet
- * Place output in: <vault>/.obsidian/snippets/matugen.css
- * Then enable it in: Settings → Appearance → CSS Snippets
+ * Synced live to: <vault>/.obsidian/snippets/matugen.css
+ * (enabled by sync-obsidian-theme.sh — Obsidian hot-reloads on write)
  */
 
 .theme-dark, .theme-light {
