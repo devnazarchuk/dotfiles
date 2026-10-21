@@ -20,6 +20,27 @@ log_success() { echo -e "${GREEN}[OK]${RESET} $1"; }
 log_warn() { echo -e "${YELLOW}[WARN]${RESET} $1"; }
 log_error() { echo -e "${RED}[ERROR]${RESET} $1"; }
 
+# Repo root: script may live in ~/.dotfiles/ or at the repo root
+repo_root() {
+    local script_dir
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    if [ "$(basename "$script_dir")" = ".dotfiles" ]; then
+        cd "$script_dir/.." && pwd
+    else
+        echo "$script_dir"
+    fi
+}
+
+# Prefer hidden .system/; fall back to legacy system/
+system_dir() {
+    local root="$1"
+    if [ -d "$root/.system" ]; then
+        echo "$root/.system"
+    elif [ -d "$root/system" ]; then
+        echo "$root/system"
+    fi
+}
+
 # --- PACKAGES ---
 PACMAN_PKGS=(
     # Core & System
@@ -87,7 +108,7 @@ step_packages() {
 step_configs() {
     log_info "Step 3: Deploying dotfiles..."
     local dotfiles_dir
-    dotfiles_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    dotfiles_dir="$(repo_root)"
     local config_dest="$TARGET_HOME/.config"
     local backup_dir="$TARGET_HOME/.config_backups/backup_$(date +%Y%m%d_%H%M%S)"
     local group
@@ -121,6 +142,7 @@ step_configs() {
 
     if [ -f "$dotfiles_dir/.zshrc" ]; then
         log_info "Deploying .zshrc..."
+        mkdir -p "$backup_dir"
         [ -f "$TARGET_HOME/.zshrc" ] && cp -a "$TARGET_HOME/.zshrc" "$backup_dir/.zshrc.bak"
         cp -a "$dotfiles_dir/.zshrc" "$TARGET_HOME/"
         chown "$TARGET_USER:$group" "$TARGET_HOME/.zshrc"
@@ -148,11 +170,11 @@ step_extras() {
     fi
 
     # Hardware & Audio fixes (Lenovo ThinkBook 13s-IML / SOF DMIC)
-    local dotfiles_dir
-    dotfiles_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    if [ -d "$dotfiles_dir/system/modprobe" ]; then
+    local sys_dir
+    sys_dir="$(system_dir "$(repo_root)")"
+    if [ -n "$sys_dir" ] && [ -d "$sys_dir/modprobe" ]; then
         log_info "Deploying hardware modprobe fixes to /etc/modprobe.d/..."
-        sudo cp -a "$dotfiles_dir/system/modprobe/"*.conf /etc/modprobe.d/
+        sudo cp -a "$sys_dir/modprobe/"*.conf /etc/modprobe.d/
         log_info "Regenerating initramfs with mkinitcpio..."
         sudo mkinitcpio -P
     fi
@@ -170,7 +192,7 @@ step_extras() {
 
 # --- CLI & MENU ---
 show_help() {
-    echo -e "${BOLD}Usage:${RESET} ./install.sh [FLAG]"
+    echo -e "${BOLD}Usage:${RESET} ~/.dotfiles/install.sh [FLAG]"
     echo "  -a, --all        Run all steps"
     echo "  -y, --yay        System update & yay install only"
     echo "  -p, --packages   Install packages only"

@@ -42,4 +42,4 @@ export PATH=~/.npm-global/bin:$PATH
 
 # Flutter & FVM Paths
 export PATH="$PATH":"$HOME/.pub-cache/bin"
-export PATH="$PATH":"$HOME/fvm/default/bin"
+export PATH="$PATH:$HOME/.local/share/fvm/default/bin"

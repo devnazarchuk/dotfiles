@@ -12,7 +12,7 @@
 
 ---
 
-<p align="center"><i><img src="screenshots/desktop1.png" width="900"/></i></p>
+<p align="center"><i><img src=".screenshots/desktop1.png" width="900"/></i></p>
 
 ---
 
@@ -27,31 +27,41 @@
 
   <br>
 
-  <!-- Add your screenshots here -->
-  <p align="center"><img src="screenshots/desktop2.png" width="900"/></p>
-  <p align="center"><img src="screenshots/desktop3.png" width="900"/></p>
-  <p align="center"><img src="screenshots/desktop4.png" width="900"/></p>
-  <p align="center"><img src="screenshots/desktop5.png" width="900"/></p>
-  <p align="center"><img src="screenshots/desktop6.png" width="900"/></p>
-  <p align="center"><img src="screenshots/desktop7.png" width="900"/></p>
+  <p align="center"><img src=".screenshots/desktop2.png" width="900"/></p>
+  <p align="center"><img src=".screenshots/desktop3.png" width="900"/></p>
+  <p align="center"><img src=".screenshots/desktop4.png" width="900"/></p>
+  <p align="center"><img src=".screenshots/desktop5.png" width="900"/></p>
+  <p align="center"><img src=".screenshots/desktop6.png" width="900"/></p>
+  <p align="center"><img src=".screenshots/desktop7.png" width="900"/></p>
 
 </details>
 
 ---
 
+## ✨ Highlights
+
+* **Dynamic theme** — light/dark switch via Matugen; GTK3/4, icons, Qt, Rofi, Thunar and Obsidian stay in sync (live reload, no sticky light GTK)
+* **Screenshots** — area select with screen freeze (`hyprpicker`), quick save or Satty editor; OCR via Tesseract (UKR/ENG)
+* **Waybar** — CPU + RAM modules, battery click cycles power profiles, styled calendar popup
+* **Voice & brightness** — Whisper voice typing (STT) and interactive backlight menu
+* **Display filters** — grayscale / night light (`hyprsunset`) with keybinds
+* **Audio fix** — ThinkBook 13s-IML built-in DMIC (SOF `pdm1` topology) via `.system/modprobe`
+* **Browser** — Zen Browser as default (mimeapps + tooling)
+* **Layout** — installer & docs in `~/.dotfiles`, assets in `~/.screenshots` / `~/.system` (hidden in file managers)
+
+---
+
 ## 🚀 Quick Installation
 
-Clone the repository and run the installation script:
+Clone into your home directory and run the installer:
 
 ```bash
-git clone https://github.com/devnazarchuk/dotfiles.git
-cd dotfiles
-chmod +x install.sh
-./install.sh
-
+git clone https://github.com/devnazarchuk/dotfiles.git ~
+chmod +x ~/.dotfiles/install.sh
+~/.dotfiles/install.sh
 ```
 
-Or use the interactive menu / flags (`./install.sh --help`).
+Or use the interactive menu / flags (`~/.dotfiles/install.sh --help`).
 
 ---
 
@@ -63,7 +73,8 @@ Or use the interactive menu / flags (`./install.sh --help`).
 * **Terminal:** Kitty / Alacritty
 * **Shell:** Zsh + Starship
 * **Editor:** Neovim / Zed
-* **Theme:** Catppuccin Mocha
+* **Theme:** Catppuccin Mocha + Matugen dynamic colors
+* **Browser:** Zen Browser
 
 ---
 

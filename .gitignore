@@ -6,11 +6,12 @@
 !.gitignore
 !README.md
 !.zshrc
-!install.sh
+!.dotfiles/
+!.dotfiles/**
+!.screenshots/
+!.screenshots/**
 !wallpaper/
 !wallpaper/**
-!screenshots/
-!screenshots/**
 !.local/share/Anki2/addons21/dynamic_theme_sync/**
 
 # 3. Allow .config container directory itself
@@ -89,5 +90,5 @@
 .config/obsidian/
 
 # 8. System Configs (SDDM & GRUB)
-!system/
-!system/**
+!.system/
+!.system/**
